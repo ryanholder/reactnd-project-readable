@@ -1,53 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import AppBar from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import Button from 'material-ui/Button';
-import { fetchPosts } from '../actions/posts';
-// import SelectCategory from '../components/SelectCategory';
+import Navigation from '../components/Navigation';
+import PostsList from '../components/PostsList';
 
-class App extends Component {
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    posts: PropTypes.shape({
-      isFetching: PropTypes.bool,
-      items: PropTypes.array,
-    }).isRequired,
-    selectedCategory: PropTypes.string.isRequired,
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoading: true,
-    };
-  }
-
-  componentDidMount() {
-    console.log(this.props);
-    const { dispatch } = this.props;
-    dispatch(fetchPosts());
-  }
-
-  render() {
-    // const { selectedCategory, isFetching, lastUpdated } = this.props;
-    return (
-      <div className="App">
-        <AppBar position="static" color="default">
-          <Toolbar>
-            <Button raised color="accent">
-              Add Post
-            </Button>
-          </Toolbar>
-          <div>
-            Hello World
-          </div>
-        </AppBar>
-      </div>
-    );
-  }
-}
+const App = props => (
+  <div className="App">
+    <Navigation />
+    <PostsList />
+  </div>
+);
 
 const mapStateToProps = (state) => {
   const { selectedCategory, posts } = state;
@@ -55,6 +17,15 @@ const mapStateToProps = (state) => {
     selectedCategory,
     posts,
   };
+};
+
+App.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  posts: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    items: PropTypes.array,
+  }).isRequired,
+  selectedCategory: PropTypes.string.isRequired,
 };
 
 export default connect(mapStateToProps)(App);
