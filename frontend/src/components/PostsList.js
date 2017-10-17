@@ -30,11 +30,12 @@ class PostsList extends Component {
       isFetching: PropTypes.bool,
       items: PropTypes.array,
     }).isRequired,
+    selectedCategory: PropTypes.string.isRequired,
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchPosts());
+    const { dispatch, selectedCategory } = this.props;
+    dispatch(fetchPosts(selectedCategory));
   }
 
   render() {
@@ -91,51 +92,16 @@ class PostsList extends Component {
             </CardActions>
           </Card>
         ))}
-        {/* <Grid container spacing={24}>
-          <Grid item xs={12}>
-            <Paper>
-              <List>
-                {posts.items.map(post => (
-                  <div>
-                    <ListItem button key={post.id}>
-                      <IconButton aria-label="Delete">
-                        <ThumbUpIcon />
-                      </IconButton>
-                      <Avatar>
-                        R
-                      </Avatar>
-                      <IconButton aria-label="Delete">
-                        <ThumbDownIcon />
-                      </IconButton>
-                      <ListItemText
-                        primary={post.title}
-                        secondary={post.author}
-                      />
-                      <ListItemSecondaryAction>
-                        <IconButton aria-label="Delete">
-                          <DeleteIcon />
-                        </IconButton>
-                        <IconButton aria-label="Delete">
-                          <DeleteIcon />
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
-                    <Divider light />
-                  </div>
-                ))}
-              </List>
-            </Paper>
-          </Grid>
-        </Grid> */}
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  const { posts } = state;
+  const { posts, selectedCategory } = state;
   return {
     posts,
+    selectedCategory,
   };
 };
 

@@ -10,6 +10,7 @@ import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { fetchCategories, selectCategory } from '../actions/categories';
+import { fetchPosts } from '../actions/posts';
 
 class Navigation extends Component {
   static propTypes = {
@@ -46,6 +47,7 @@ class Navigation extends Component {
     const { dispatch } = this.props;
     this.setState({ open: false });
     dispatch(selectCategory(category));
+    dispatch(fetchPosts(category));
   };
 
   render() {
