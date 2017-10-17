@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom'
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
@@ -8,7 +9,7 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import { fetchCategories } from '../actions/categories';
+import { fetchCategories, selectCategory } from '../actions/categories';
 
 class Navigation extends Component {
   static propTypes = {
@@ -41,6 +42,12 @@ class Navigation extends Component {
     this.setState({ open: false });
   };
 
+  handleMenuItemClick = (event, category) => {
+    const { dispatch } = this.props;
+    this.setState({ open: false });
+    dispatch(selectCategory(category));
+  };
+
   render() {
     const { categories, selectedCategory } = this.props;
     return (
@@ -55,19 +62,21 @@ class Navigation extends Component {
           >
             <MenuIcon />
           </IconButton>
-          <Typography type="title" color="inherit">
+          <Typography className="category-title" type="title" color="inherit">
             {selectedCategory}
           </Typography>
           <Menu
-            id="simple-menu"
             anchorEl={this.state.anchorEl}
             open={this.state.open}
             onRequestClose={this.handleRequestClose}
           >
-            {categories.items.map(category => (
-              <MenuItem key={category.name}>
-                {category.name}
-                {/* <Link to={`/${category.path}`}></Link> */}
+            {[{ name: 'all', path: 'all' }].concat(categories.items).map(category => (
+              <MenuItem
+                key={category.name}
+                selected={this.props.selectedCategory === category.name}
+                onClick={event => this.handleMenuItemClick(event, category.name)}
+              >
+                <Link className="category-link" to={(category.path === 'all' ? '/' : `/${category.path}`)}>{category.name}</Link>
               </MenuItem>
             ))}
           </Menu>

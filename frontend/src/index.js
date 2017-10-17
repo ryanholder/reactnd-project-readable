@@ -8,10 +8,13 @@ import App from './container/App';
 import './index.css';
 
 const store = configureStore();
+const category = store.getState().selectedCategory;
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <Route path={category === 'all' ? '/' : `/:${category}`} component={App} />
+    </Router>
   </Provider>,
   document.getElementById('root'),
 );
