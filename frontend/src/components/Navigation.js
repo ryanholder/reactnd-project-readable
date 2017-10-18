@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
@@ -9,17 +9,16 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import { fetchCategories, selectCategory } from '../actions/categories';
-import { fetchPosts } from '../actions/posts';
+import { fetchCategories, setSelectedCategory } from '../actions/categories';
 
 class Navigation extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     categories: PropTypes.shape({
+      selectedCategory: PropTypes.string,
       isFetching: PropTypes.bool,
       items: PropTypes.array,
     }).isRequired,
-    selectedCategory: PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -46,12 +45,11 @@ class Navigation extends Component {
   handleMenuItemClick = (event, category) => {
     const { dispatch } = this.props;
     this.setState({ open: false });
-    dispatch(selectCategory(category));
-    dispatch(fetchPosts(category));
+    dispatch(setSelectedCategory(category));
   };
 
   render() {
-    const { categories, selectedCategory } = this.props;
+    const { categories } = this.props;
     return (
       <AppBar position="static" color="primary">
         <Toolbar>
@@ -65,7 +63,7 @@ class Navigation extends Component {
             <MenuIcon />
           </IconButton>
           <Typography className="category-title" type="title" color="inherit">
-            {selectedCategory}
+            {categories.selectedCategory}
           </Typography>
           <Menu
             anchorEl={this.state.anchorEl}
@@ -75,7 +73,7 @@ class Navigation extends Component {
             {[{ name: 'all', path: 'all' }].concat(categories.items).map(category => (
               <MenuItem
                 key={category.name}
-                selected={this.props.selectedCategory === category.name}
+                selected={categories.selectedCategory === category.name}
                 onClick={event => this.handleMenuItemClick(event, category.name)}
               >
                 <Link className="category-link" to={(category.path === 'all' ? '/' : `/${category.path}`)}>{category.name}</Link>
@@ -93,9 +91,8 @@ class Navigation extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { selectedCategory, categories } = state;
+  const { categories } = state;
   return {
-    selectedCategory,
     categories,
   };
 };

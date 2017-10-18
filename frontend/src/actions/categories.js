@@ -1,11 +1,11 @@
 const CATEGORIES_URL = 'http://localhost:3001/categories';
 
-export const SELECT_CATEGORY = 'SELECT_CATEGORY';
+export const SET_SELECTED_CATEGORY = 'SET_SELECTED_CATEGORY';
 export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES';
 export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
 
-export const selectCategory = category => ({
-  type: SELECT_CATEGORY,
+export const setSelectedCategory = category => ({
+  type: SET_SELECTED_CATEGORY,
   category,
 });
 

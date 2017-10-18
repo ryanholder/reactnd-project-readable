@@ -1,22 +1,20 @@
 import {
-  SELECT_CATEGORY,
-  REQUEST_CATEGORIES, RECEIVE_CATEGORIES,
+  SET_SELECTED_CATEGORY,
+  REQUEST_CATEGORIES,
+  RECEIVE_CATEGORIES,
 } from '../actions/categories';
 
-export const selectedCategory = (state = 'all', action) => {
-  switch (action.type) {
-    case SELECT_CATEGORY:
-      return action.category;
-    default:
-      return state;
-  }
-};
-
-export const categories = (state = {
+const categories = (state = {
+  selectedCategory: 'all',
   isFetching: false,
   items: [],
 }, action) => {
   switch (action.type) {
+    case SET_SELECTED_CATEGORY:
+      return {
+        ...state,
+        selectedCategory: action.category,
+      };
     case REQUEST_CATEGORIES:
       return {
         ...state,
@@ -33,3 +31,5 @@ export const categories = (state = {
       return state;
   }
 };
+
+export default categories;

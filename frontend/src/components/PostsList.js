@@ -1,27 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import List, { ListItem, ListItemText, ListItemSecondaryAction } from 'material-ui/List';
 import IconButton from 'material-ui/IconButton';
-import DeleteIcon from 'material-ui-icons/Delete';
 import CommentIcon from 'material-ui-icons/Comment';
-import Person from 'material-ui-icons/Person';
-import Avatar from 'material-ui/Avatar';
 import Typography from 'material-ui/Typography';
-import Divider from 'material-ui/Divider';
-import red from 'material-ui/colors/red';
-import Chip from 'material-ui/Chip';
-import Card, { CardHeader, CardMedia, CardContent, CardActions } from 'material-ui/Card';
-import FavoriteIcon from 'material-ui-icons/Favorite';
+import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
 import Badge from 'material-ui/Badge';
 import ThumbUpIcon from 'material-ui-icons/ThumbUp';
 import ThumbDownIcon from 'material-ui-icons/ThumbDown';
 import ThumbsUpDown from 'material-ui-icons/ThumbsUpDown';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
-import Paper from 'material-ui/Paper';
-import Grid from 'material-ui/Grid';
 import { fetchPosts } from '../actions/posts';
-
 
 class PostsList extends Component {
   static propTypes = {
@@ -30,19 +19,32 @@ class PostsList extends Component {
       isFetching: PropTypes.bool,
       items: PropTypes.array,
     }).isRequired,
-    selectedCategory: PropTypes.string.isRequired,
+    categories: PropTypes.shape({
+      selectedCategory: PropTypes.string,
+      isFetching: PropTypes.bool,
+      items: PropTypes.array,
+    }).isRequired,
   }
 
   componentDidMount() {
-    const { dispatch, selectedCategory } = this.props;
-    dispatch(fetchPosts(selectedCategory));
+    const { dispatch } = this.props;
+    dispatch(fetchPosts());
+  }
+
+  filterByCategory = (post) => {
+    const { categories } = this.props;
+    if (categories.selectedCategory !== 'all') {
+      return post.category === categories.selectedCategory;
+    }
+
+    return post;
   }
 
   render() {
     const { posts } = this.props;
     return (
       <div className="grid-container">
-        {posts.items.map(post => (
+        {posts.items.filter(this.filterByCategory).map(post => (
           <Card key={post.id} className="card-container">
             <CardHeader
               title={
@@ -58,8 +60,7 @@ class PostsList extends Component {
             />
             <CardContent>
               <Typography component="p">
-                This impressive paella is a perfect party dish and a fun meal to cook together with
-                your guests. Add 1 cup of frozen peas along with the mussels, if you like.
+                {post.body}
               </Typography>
             </CardContent>
             <CardActions disableActionSpacing>
@@ -98,10 +99,10 @@ class PostsList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { posts, selectedCategory } = state;
+  const { posts, categories } = state;
   return {
     posts,
-    selectedCategory,
+    categories,
   };
 };
 

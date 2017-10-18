@@ -9,18 +9,19 @@ import PostView from '../components/PostView';
 const App = props => (
   <div className="App">
     <Navigation />
+    {/* <Route path={category === 'all' ? '/' : `/:${category}`} component={App} /> */}
+
     <Switch>
-      <Route exact path="/:{props.selectedCategory}" component={PostsList} />
+      <Route exact path={props.categories.selectedCategory === 'all' ? '/' : `/:${props.categories.selectedCategory}`} component={PostsList} />
       <Route exact path="/:category/:id" component={PostView} />
     </Switch>
-    <PostsList />
   </div>
 );
 
 const mapStateToProps = (state) => {
-  const { selectedCategory, posts } = state;
+  const { categories, posts } = state;
   return {
-    selectedCategory,
+    categories,
     posts,
   };
 };
@@ -31,7 +32,11 @@ App.propTypes = {
     isFetching: PropTypes.bool,
     items: PropTypes.array,
   }).isRequired,
-  selectedCategory: PropTypes.string.isRequired,
+  categories: PropTypes.shape({
+    selectedCategory: PropTypes.string,
+    isFetching: PropTypes.bool,
+    items: PropTypes.array,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(App);
