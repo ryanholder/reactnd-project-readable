@@ -69,7 +69,7 @@ class Navigation extends Component {
             open={this.state.open}
             onRequestClose={this.handleRequestClose}
           >
-            {[{ name: 'all', path: '' }].concat(categories.items).map(item => (
+            {[{ name: category, path: '' }].concat(categories.items).map(item => (
               <MenuItem
                 key={item.name}
                 selected={category === item.name}
