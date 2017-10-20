@@ -9,7 +9,7 @@ import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import { fetchCategories, setSelectedCategory } from '../actions/categories';
+import { fetchCategories } from '../actions/categories';
 
 class Navigation extends Component {
   static propTypes = {
@@ -51,7 +51,7 @@ class Navigation extends Component {
     const { category, categories } = this.props;
     return (
       <AppBar position="static" color="primary">
-        <Toolbar>
+        <Toolbar className="nav-toolbar">
           <IconButton
             aria-owns={this.state.open ? 'simple-menu' : null}
             color="contrast"

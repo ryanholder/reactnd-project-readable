@@ -1,20 +1,13 @@
 import {
-  SET_SELECTED_CATEGORY,
   REQUEST_CATEGORIES,
   RECEIVE_CATEGORIES,
 } from '../actions/categories';
 
 const categories = (state = {
-  selectedCategory: 'all',
   isFetching: false,
   items: [],
 }, action) => {
   switch (action.type) {
-    case SET_SELECTED_CATEGORY:
-      return {
-        ...state,
-        selectedCategory: action.category,
-      };
     case REQUEST_CATEGORIES:
       return {
         ...state,
