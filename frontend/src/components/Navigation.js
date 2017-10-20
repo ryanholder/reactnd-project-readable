@@ -19,6 +19,7 @@ class Navigation extends Component {
       isFetching: PropTypes.bool,
       items: PropTypes.array,
     }).isRequired,
+    category: PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -42,14 +43,12 @@ class Navigation extends Component {
     this.setState({ open: false });
   };
 
-  handleMenuItemClick = (event, category) => {
-    const { dispatch } = this.props;
+  handleMenuItemClick = (event) => {
     this.setState({ open: false });
-    dispatch(setSelectedCategory(category));
   };
 
   render() {
-    const { categories } = this.props;
+    const { category, categories } = this.props;
     return (
       <AppBar position="static" color="primary">
         <Toolbar>
@@ -63,20 +62,25 @@ class Navigation extends Component {
             <MenuIcon />
           </IconButton>
           <Typography className="category-title" type="title" color="inherit">
-            {categories.selectedCategory}
+            {category}
           </Typography>
           <Menu
             anchorEl={this.state.anchorEl}
             open={this.state.open}
             onRequestClose={this.handleRequestClose}
           >
-            {[{ name: 'all', path: 'all' }].concat(categories.items).map(category => (
+            {[{ name: 'all', path: '' }].concat(categories.items).map(item => (
               <MenuItem
-                key={category.name}
-                selected={categories.selectedCategory === category.name}
-                onClick={event => this.handleMenuItemClick(event, category.name)}
+                key={item.name}
+                selected={category === item.name}
               >
-                <Link className="category-link" to={(category.path === 'all' ? '/' : `/${category.path}`)}>{category.name}</Link>
+                <Link
+                  className="category-link"
+                  to={item.path}
+                  onClick={event => this.handleMenuItemClick(event)}
+                >
+                  {item.name}
+                </Link>
               </MenuItem>
             ))}
           </Menu>

@@ -19,11 +19,7 @@ class PostsList extends Component {
       isFetching: PropTypes.bool,
       items: PropTypes.array,
     }).isRequired,
-    categories: PropTypes.shape({
-      selectedCategory: PropTypes.string,
-      isFetching: PropTypes.bool,
-      items: PropTypes.array,
-    }).isRequired,
+    category: PropTypes.string.isRequired,
   }
 
   componentDidMount() {
@@ -32,9 +28,9 @@ class PostsList extends Component {
   }
 
   filterByCategory = (post) => {
-    const { categories } = this.props;
-    if (categories.selectedCategory !== 'all') {
-      return post.category === categories.selectedCategory;
+    const { category } = this.props;
+    if (category !== 'all') {
+      return post.category === category;
     }
 
     return post;
@@ -76,7 +72,7 @@ class PostsList extends Component {
                 aria-label="Vote Score"
                 disabled
               >
-                <Badge badgeContent={10} color="accent">
+                <Badge badgeContent={post.voteScore} color="accent">
                   <ThumbsUpDown />
                 </Badge>
               </IconButton>
@@ -98,11 +94,10 @@ class PostsList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { posts, categories } = state;
+const mapStateToProps = (state, ownProps) => {
+  const { posts } = state;
   return {
     posts,
-    categories,
   };
 };
 
