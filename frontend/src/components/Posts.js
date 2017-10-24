@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Card from 'material-ui/Card';
 import PostHeader from './PostHeader';
 import PostContent from './PostContent';
-import PostActions from './PostActions';
+import PostFooter from './PostFooter';
 
 class Posts extends Component {
   static propTypes = {
@@ -36,7 +36,7 @@ class Posts extends Component {
             <PostContent
               content={post.body}
             />
-            <PostActions
+            <PostFooter
               voteCount={post.voteScore}
             />
           </Card>

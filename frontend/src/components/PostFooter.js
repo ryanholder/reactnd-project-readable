@@ -8,7 +8,7 @@ import ThumbDownIcon from 'material-ui-icons/ThumbDown';
 import ThumbsUpDown from 'material-ui-icons/ThumbsUpDown';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 
-const PostActions = props => (
+const PostFooter = props => (
   <CardActions disableActionSpacing>
     <IconButton
       aria-label="Comments"
@@ -39,4 +39,4 @@ const PostActions = props => (
   </CardActions>
 );
 
-export default PostActions;
+export default PostFooter;
