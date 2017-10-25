@@ -32,6 +32,10 @@ body {
   padding: 24px;
 }
 
+.count-badge {
+  display: flex !important;
+}
+
 .flex-grow {
   flex: 1;
 }
