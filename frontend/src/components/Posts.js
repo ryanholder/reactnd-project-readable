@@ -38,6 +38,7 @@ class Posts extends Component {
             />
             <PostFooter
               voteCount={post.voteScore}
+              commentCount={4}
             />
           </Card>
         ))}

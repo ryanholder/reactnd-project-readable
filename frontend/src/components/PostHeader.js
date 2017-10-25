@@ -12,7 +12,7 @@ const PostHeader = props => (
     }
     subheader={
       <span>
-        Written by: {props.author} on <Timestamp time={props.timestamp / 1000} format="date" />
+        Written by: {props.author} on <Timestamp time={props.date / 1000} format="date" />
       </span>
     }
   />
