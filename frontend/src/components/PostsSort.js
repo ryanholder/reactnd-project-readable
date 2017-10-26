@@ -16,25 +16,25 @@ import Tooltip from 'material-ui/Tooltip';
 import Toolbar from 'material-ui/Toolbar';
 import DeleteIcon from 'material-ui-icons/Delete';
 import FilterListIcon from 'material-ui-icons/FilterList';
+import { orderPosts } from '../actions/posts';
 
 class PostsSort extends Component {
   static propTypes = {
-    onRequestSort: PropTypes.func.isRequired,
     order: PropTypes.string.isRequired,
     orderBy: PropTypes.string.isRequired,
   }
 
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange = orderBy => (event) => {
-    this.props.onRequestSort(event, orderBy);
-  };
+  // handleChange = orderBy => (event) => {
+  //   this.props.onRequestSort(event, orderBy);
+  // };
 
   render() {
-    const { order, orderBy } = this.props;
+    const { order, orderBy, dispatch } = this.props;
 
     return (
       <div>
@@ -45,7 +45,8 @@ class PostsSort extends Component {
                 <TableSortLabel
                   active={orderBy === 'voteScore'}
                   direction={order}
-                  onClick={this.handleChange('voteScore')}
+                  onClick={() => { dispatch(orderPosts('voteScore')); }}
+                  // onClick={dispatch(orderPosts('voteScore'))}
                 >
                   Votes
                 </TableSortLabel>
@@ -54,7 +55,7 @@ class PostsSort extends Component {
                 <TableSortLabel
                   active={orderBy === 'timestamp'}
                   direction={order}
-                  onClick={this.handleChange('timestamp')}
+                  onClick={() => { dispatch(orderPosts('timestamp')); }}
                 >
                   Date
                 </TableSortLabel>

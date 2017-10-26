@@ -17,11 +17,6 @@ class PostsList extends Component {
 
   constructor(props) {
     super(props);
-    this.handleRequestSort = this.handleRequestSort.bind(this);
-    this.state = {
-      order: 'desc',
-      orderBy: 'voteScore',
-    };
   }
 
   componentDidMount() {
@@ -29,33 +24,32 @@ class PostsList extends Component {
     dispatch(fetchPosts());
   }
 
-  handleRequestSort = (event, orderBy) => {
-    const { posts } = this.props;
-    let order = 'desc';
-
-    if (this.state.orderBy === orderBy && this.state.order === 'desc') {
-      order = 'asc';
-    }
-
-    order === 'desc'
-      ? posts.items.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
-      : posts.items.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
-
-    this.setState({
-      order,
-      orderBy,
-    });
-  };
+  // handleRequestSort = (event, orderBy) => {
+  //   const { posts } = this.props;
+  //   let order = 'desc';
+  //
+  //   if (this.state.orderBy === orderBy && this.state.order === 'desc') {
+  //     order = 'asc';
+  //   }
+  //
+  //   order === 'desc'
+  //     ? posts.items.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
+  //     : posts.items.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
+  //
+  //   this.setState({
+  //     order,
+  //     orderBy,
+  //   });
+  // };
 
   render() {
     const { category, posts } = this.props;
-    const { order, orderBy } = this.state;
+    // const { order, orderBy } = this.state;
     return (
       <div className="grid-container">
         <PostsSort
-          order={order}
-          orderBy={orderBy}
-          onRequestSort={this.handleRequestSort}
+          order={posts.order}
+          orderBy={posts.orderBy}
         />
         <Posts
           category={category}

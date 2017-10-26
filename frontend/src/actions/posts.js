@@ -2,6 +2,8 @@ const POSTS_URL = 'http://localhost:3001/posts';
 
 export const REQUEST_POSTS = 'REQUEST_POSTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
+export const ORDER_POSTS = 'ORDER_POSTS';
+
 
 export const requestPosts = () => ({
   type: REQUEST_POSTS,
@@ -11,6 +13,11 @@ export const receivePosts = json => ({
   type: RECEIVE_POSTS,
   posts: json,
   receivedAt: Date.now(),
+});
+
+export const orderPosts = orderBy => ({
+  type: ORDER_POSTS,
+  orderBy,
 });
 
 export const fetchPosts = () => (dispatch) => {
