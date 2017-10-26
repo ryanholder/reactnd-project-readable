@@ -17,10 +17,6 @@ const posts = (state = {
         isFetching: true,
       };
     case RECEIVE_POSTS:
-      // export const indexById = arr => arr.reduce((obj, item) => {
-      //   obj[item.id] = item
-      //   return obj
-      // }, {})
       return {
         ...state,
         isFetching: false,
@@ -51,15 +47,6 @@ const posts = (state = {
           }),
         ],
       };
-      // return state.items.map((item) => {
-      //   console.log(item);
-      //   if (item.id === action.post.id) {
-      //     console.log('yes');
-      //     console.log(action.post.voteScore);
-      //     return { ...item, voteScore: action.post.voteScore };
-      //   }
-      //   return item;
-      // });
     default:
       return state;
   }

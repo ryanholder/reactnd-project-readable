@@ -31,7 +31,6 @@ class PostsList extends Component {
 
   handleRequestSort = (event, orderBy) => {
     const { posts } = this.props;
-
     let order = 'desc';
 
     if (this.state.orderBy === orderBy && this.state.order === 'desc') {

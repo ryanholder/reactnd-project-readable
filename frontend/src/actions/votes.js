@@ -28,11 +28,6 @@ export const votePostUp = id => (dispatch) => {
   return fetch(request)
     .then(response => response.json())
     .then(json => dispatch(votePostUpSuccess(json)));
-    // .then((response) => {
-      // console.log('response', response);
-      // switch (action.type) {
-      // .then(json => dispatch(votePostUp(json)));
-    // });
 };
 
 export const votePostDown = id => (dispatch) => {
