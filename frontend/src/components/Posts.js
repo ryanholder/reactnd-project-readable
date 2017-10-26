@@ -37,6 +37,7 @@ class Posts extends Component {
               content={post.body}
             />
             <PostFooter
+              id={post.id}
               voteCount={post.voteScore}
               commentCount={4}
             />

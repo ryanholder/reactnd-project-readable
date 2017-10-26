@@ -4,7 +4,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import PostCommentCount from './PostCommentCount';
 import PostVoteCount from './PostVoteCount';
-import PostVoteUpDown from './PostVoteUpDown';
+import VoteUpDown from './VoteUpDown';
 
 const PostFooter = props => (
   <CardActions disableActionSpacing>
@@ -15,7 +15,10 @@ const PostFooter = props => (
       voteCount={props.voteCount}
     />
     <div className="flex-grow" />
-    <PostVoteUpDown />
+    <VoteUpDown
+      id={props.id}
+      type={'post'}
+    />
     <IconButton aria-label="More">
       <MoreVertIcon />
     </IconButton>
