@@ -1,3 +1,5 @@
+import { orderPosts } from './posts';
+
 const POSTS_URL = 'http://localhost:3001/posts';
 const headers = {
   Authorization: 'authem',
@@ -18,8 +20,9 @@ export const votePostDownSuccess = json => ({
   post: json,
 });
 
-export const votePostUp = id => (dispatch) => {
-  const request = new Request(`${POSTS_URL}/${id}`, {
+export const votePostUp = postId => (dispatch, getState) => {
+  const state = getState();
+  const request = new Request(`${POSTS_URL}/${postId}`, {
     method: 'POST',
     body: JSON.stringify({ option: 'upVote' }),
     headers,
@@ -27,11 +30,13 @@ export const votePostUp = id => (dispatch) => {
 
   return fetch(request)
     .then(response => response.json())
-    .then(json => dispatch(votePostUpSuccess(json)));
+    .then(post => dispatch(votePostUpSuccess(post)))
+    .then(() => dispatch(orderPosts(state.posts.orderDesc, state.posts.orderBy)));
 };
 
-export const votePostDown = id => (dispatch) => {
-  const request = new Request(`${POSTS_URL}/${id}`, {
+export const votePostDown = postId => (dispatch, getState) => {
+  const state = getState();
+  const request = new Request(`${POSTS_URL}/${postId}`, {
     method: 'POST',
     body: JSON.stringify({ option: 'downVote' }),
     headers,
@@ -39,5 +44,6 @@ export const votePostDown = id => (dispatch) => {
 
   return fetch(request)
     .then(response => response.json())
-    .then(json => dispatch(votePostDownSuccess(json)));
+    .then(post => dispatch(votePostDownSuccess(post)))
+    .then(() => dispatch(orderPosts(state.posts.orderDesc, state.posts.orderBy)));
 };

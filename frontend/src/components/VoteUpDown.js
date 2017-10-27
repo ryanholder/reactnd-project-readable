@@ -1,35 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import ThumbUpIcon from 'material-ui-icons/ThumbUp';
 import ThumbDownIcon from 'material-ui-icons/ThumbDown';
-
-import { votePost, votePostUp, votePostDown } from '../actions/votes';
-
-// app.post('/posts/:id', bodyParser.json(), (req, res) => {
-//     const { option } = req.body
-//     const id = req.params.id
-//     posts.vote(req.token, id, option)
-//       .then(
-//           (data) => res.send(data),
-//           (error) => {
-//               console.error(error)
-//               res.status(500).send({
-//                   error: 'There was an error.'
-//               })
-//           }
-//       )
-// })
+import { votePostUp, votePostDown } from '../actions/votes';
 
 const VoteUpDown = (props) => {
   const { dispatch } = props;
 
-  const handleVoteUp = (e, type = props.type, id = props.id) => {
+  const handleVoteUp = (e, voteType = props.voteType, postId = props.postId) => {
     e.preventDefault();
 
-    switch (type) {
+    switch (voteType) {
       case 'post':
-        dispatch(votePostUp(id));
+        dispatch(votePostUp(postId));
         break;
       case 'comment':
         break;
@@ -38,12 +23,12 @@ const VoteUpDown = (props) => {
     }
   };
 
-  const handleVoteDown = (e, type = props.type, id = props.id) => {
+  const handleVoteDown = (e, voteType = props.voteType, postId = props.postId) => {
     e.preventDefault();
 
-    switch (type) {
+    switch (voteType) {
       case 'post':
-        dispatch(votePostDown(id));
+        dispatch(votePostDown(postId));
         break;
       case 'comment':
         break;
@@ -68,6 +53,12 @@ const VoteUpDown = (props) => {
       </IconButton>
     </div>
   );
+};
+
+VoteUpDown.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  voteType: PropTypes.string.isRequired,
+  postId: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {

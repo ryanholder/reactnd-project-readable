@@ -6,17 +6,13 @@ import {
   VOTE_POST_UP_SUCCESS, VOTE_POST_DOWN_SUCCESS,
 } from '../actions/votes';
 
-const handleRequestOrderPosts = (state, orderBy) => {
-  let order = 'desc';
-  if (state.orderBy === orderBy && state.order === 'desc') {
-    order = 'asc';
-  }
-  order === 'desc'
+const handleRequestOrderPosts = (state, orderDesc = state.orderDesc, orderBy = state.orderBy) => {
+  orderDesc
     ? state.items.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
     : state.items.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
   return {
     ...state,
-    order,
+    orderDesc,
     orderBy,
   };
 };
@@ -24,7 +20,7 @@ const handleRequestOrderPosts = (state, orderBy) => {
 const posts = (state = {
   isFetching: false,
   items: [],
-  order: 'desc',
+  orderDesc: true,
   orderBy: 'voteScore',
 }, action) => {
   switch (action.type) {
@@ -41,7 +37,7 @@ const posts = (state = {
         lastUpdated: action.receivedAt,
       };
     case ORDER_POSTS:
-      return handleRequestOrderPosts(state, action.orderBy);
+      return handleRequestOrderPosts(state, action.orderDesc, action.orderBy);
     case VOTE_POST_UP_SUCCESS:
       return {
         ...state,

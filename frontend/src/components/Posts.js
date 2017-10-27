@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import Card from 'material-ui/Card';
 import PostHeader from './PostHeader';
 import PostContent from './PostContent';
 import PostFooter from './PostFooter';
 
 class Posts extends Component {
-  static propTypes = {
-    posts: PropTypes.shape({
-      isFetching: PropTypes.bool,
-      items: PropTypes.array,
-    }).isRequired,
-    category: PropTypes.string.isRequired,
-  }
-
   filterByCategory = (post) => {
     const { category } = this.props;
     if (category !== 'all') {
@@ -37,7 +30,7 @@ class Posts extends Component {
               content={post.body}
             />
             <PostFooter
-              id={post.id}
+              postId={post.id}
               voteCount={post.voteScore}
               commentCount={4}
             />
@@ -48,4 +41,19 @@ class Posts extends Component {
   }
 }
 
-export default Posts;
+Posts.propTypes = {
+  posts: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    items: PropTypes.array,
+  }).isRequired,
+  category: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = (state, ownProps) => {
+  const { posts } = state;
+  return {
+    posts,
+  };
+};
+
+export default connect(mapStateToProps)(Posts);

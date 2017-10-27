@@ -6,59 +6,37 @@ import PostsSort from './PostsSort';
 import Posts from './Posts';
 
 class PostsList extends Component {
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    posts: PropTypes.shape({
-      isFetching: PropTypes.bool,
-      items: PropTypes.array,
-    }).isRequired,
-    category: PropTypes.string.isRequired,
-  }
-
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchPosts());
   }
 
-  // handleRequestSort = (event, orderBy) => {
-  //   const { posts } = this.props;
-  //   let order = 'desc';
-  //
-  //   if (this.state.orderBy === orderBy && this.state.order === 'desc') {
-  //     order = 'asc';
-  //   }
-  //
-  //   order === 'desc'
-  //     ? posts.items.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
-  //     : posts.items.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
-  //
-  //   this.setState({
-  //     order,
-  //     orderBy,
-  //   });
-  // };
-
   render() {
     const { category, posts } = this.props;
-    // const { order, orderBy } = this.state;
     return (
       <div className="grid-container">
         <PostsSort
-          order={posts.order}
+          orderDesc={posts.orderDesc}
           orderBy={posts.orderBy}
         />
         <Posts
           category={category}
-          posts={posts}
         />
       </div>
     );
   }
 }
+
+PostsList.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  posts: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    items: PropTypes.array,
+    orderDesc: PropTypes.bool,
+    orderBy: PropTypes.string,
+  }).isRequired,
+  category: PropTypes.string.isRequired,
+};
 
 const mapStateToProps = (state, ownProps) => {
   const { posts } = state;

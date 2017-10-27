@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CardActions } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
@@ -16,13 +17,19 @@ const PostFooter = props => (
     />
     <div className="flex-grow" />
     <VoteUpDown
-      id={props.id}
-      type={'post'}
+      postId={props.postId}
+      voteType={'post'}
     />
     <IconButton aria-label="More">
       <MoreVertIcon />
     </IconButton>
   </CardActions>
 );
+
+PostFooter.propTypes = {
+  postId: PropTypes.string.isRequired,
+  commentCount: PropTypes.number.isRequired,
+  voteCount: PropTypes.number.isRequired,
+};
 
 export default PostFooter;

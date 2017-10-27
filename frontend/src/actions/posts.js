@@ -15,14 +15,17 @@ export const receivePosts = json => ({
   receivedAt: Date.now(),
 });
 
-export const orderPosts = orderBy => ({
+export const orderPosts = (orderDesc, orderBy) => ({
   type: ORDER_POSTS,
+  orderDesc,
   orderBy,
 });
 
-export const fetchPosts = () => (dispatch) => {
+export const fetchPosts = () => (dispatch, getState) => {
+  const state = getState();
   dispatch(requestPosts());
   return fetch(`${POSTS_URL}`, { headers: { Authorization: 'authem' } })
     .then(response => response.json())
-    .then(json => dispatch(receivePosts(json)));
+    .then(json => dispatch(receivePosts(json)))
+    .then(posts => dispatch(orderPosts(state.posts.orderDesc, state.posts.orderBy)));
 };
