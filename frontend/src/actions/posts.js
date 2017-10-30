@@ -1,4 +1,6 @@
-const POSTS_URL = 'http://localhost:3001/posts';
+import { fetchComments } from './comments';
+
+export const POSTS_URL = 'http://localhost:3001/posts';
 
 export const REQUEST_POSTS = 'REQUEST_POSTS';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -9,9 +11,9 @@ export const requestPosts = () => ({
   type: REQUEST_POSTS,
 });
 
-export const receivePosts = json => ({
+export const receivePosts = posts => ({
   type: RECEIVE_POSTS,
-  posts: json,
+  posts,
   receivedAt: Date.now(),
 });
 
@@ -26,6 +28,9 @@ export const fetchPosts = () => (dispatch, getState) => {
   dispatch(requestPosts());
   return fetch(`${POSTS_URL}`, { headers: { Authorization: 'authem' } })
     .then(response => response.json())
-    .then(json => dispatch(receivePosts(json)))
+    .then((posts) => {
+      dispatch(receivePosts(posts));
+      posts.forEach(post => dispatch(fetchComments(post.id)));
+    })
     .then(posts => dispatch(orderPosts(state.posts.orderDesc, state.posts.orderBy)));
 };
