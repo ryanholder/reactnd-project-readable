@@ -1,39 +1,23 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions/posts';
 
+const PostDetailView = ({ match }) => (
+  <div className="post-detail-view">
+    Hello Post Detail View
+  </div>
+);
 
-class PostDetailView extends Component {
-  static propTypes = {
-    // dispatch: PropTypes.func.isRequired,
-    // posts: PropTypes.shape({
-    //   isFetching: PropTypes.bool,
-    //   items: PropTypes.array,
-    // }).isRequired,
-  }
+PostDetailView.propTypes = {
+  match: PropTypes.array.isRequired,
+};
 
-  componentDidMount() {
-    // const { dispatch } = this.props;
-    // dispatch(fetchPosts());
-  }
+const mapStateToProps = (state) => {
+  const { posts, comments } = state;
+  return {
+    posts,
+    comments,
+  };
+};
 
-  render() {
-    // const { posts } = this.props;
-    return (
-      <div>
-        Post View
-      </div>
-    );
-  }
-}
-
-// const mapStateToProps = (state) => {
-//   const { posts } = state;
-//   return {
-//     posts,
-//   };
-// };
-
-// export default connect(mapStateToProps)(PostsList);
-export default PostDetailView;
+export default connect(mapStateToProps)(PostDetailView);

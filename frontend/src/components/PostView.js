@@ -5,7 +5,7 @@ import Navigation from './Navigation';
 import PostsList from './PostsList';
 
 const PostView = ({ match }) => (
-  <div className="App">
+  <div className="post-view">
     <Navigation
       category={match.params.category || 'all'}
     />
