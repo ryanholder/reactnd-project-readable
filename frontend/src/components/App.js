@@ -1,18 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Navigation from './Navigation';
-import PostsList from './PostsList';
-import PostView from '../components/PostView';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import PostView from './PostView';
+import PostDetailView from './PostDetailView';
+
 
 const App = ({ match }) => (
-  <div className="App">
-    <Navigation
-      category={match.params.category || 'all'}
-    />
-    <PostsList
-      category={match.params.category || 'all'}
-    />
-  </div>
+  <Router>
+    <Route path="/:category?" component={PostView} />
+  </Router>
 );
 
 const mapStateToProps = (state) => {
@@ -21,6 +18,10 @@ const mapStateToProps = (state) => {
     categories,
     posts,
   };
+};
+
+App.propTypes = {
+  match: PropTypes.array.isRequired,
 };
 
 export default connect(mapStateToProps)(App);

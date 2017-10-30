@@ -1,39 +1,30 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { connect } from 'react-redux';
-import { fetchPosts } from '../actions/posts';
+import PropTypes from 'prop-types';
+import Navigation from './Navigation';
+import PostsList from './PostsList';
 
+const PostView = ({ match }) => (
+  <div className="App">
+    <Navigation
+      category={match.params.category || 'all'}
+    />
+    <PostsList
+      category={match.params.category || 'all'}
+    />
+  </div>
+);
 
-class PostView extends Component {
-  static propTypes = {
-    // dispatch: PropTypes.func.isRequired,
-    // posts: PropTypes.shape({
-    //   isFetching: PropTypes.bool,
-    //   items: PropTypes.array,
-    // }).isRequired,
-  }
+PostView.propTypes = {
+  match: PropTypes.array.isRequired,
+};
 
-  componentDidMount() {
-    // const { dispatch } = this.props;
-    // dispatch(fetchPosts());
-  }
+const mapStateToProps = (state) => {
+  const { categories, posts } = state;
+  return {
+    categories,
+    posts,
+  };
+};
 
-  render() {
-    // const { posts } = this.props;
-    return (
-      <div>
-        Post View
-      </div>
-    );
-  }
-}
-
-// const mapStateToProps = (state) => {
-//   const { posts } = state;
-//   return {
-//     posts,
-//   };
-// };
-
-// export default connect(mapStateToProps)(PostsList);
-export default PostView;
+export default connect(mapStateToProps)(PostView);
