@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Navigation from './Navigation';
+import PostViewNavigation from './PostViewNavigation';
 import PostsList from './PostsList';
 
 const PostView = ({ match }) => (
   <div className="post-view">
-    <Navigation
+    <PostViewNavigation
       category={match.params.category || 'all'}
     />
     <PostsList
