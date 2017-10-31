@@ -5,6 +5,10 @@ body {
   font-family: sans-serif;
 }
 
+.post-link {
+  text-decoration: none;
+}
+
 .inline-chip {
   margin-right: 8px;
   display: inline-flex !important;

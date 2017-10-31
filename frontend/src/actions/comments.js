@@ -8,8 +8,9 @@ export const requestComments = () => ({
   type: REQUEST_COMMENTS,
 });
 
-export const receiveComments = comments => ({
+export const receiveComments = (postId, comments) => ({
   type: RECEIVE_COMMENTS,
+  postId,
   comments,
   receivedAt: Date.now(),
 });
@@ -22,7 +23,17 @@ export const orderComments = (orderDesc, orderBy) => ({
 
 export const fetchComments = postId => (dispatch) => {
   dispatch(requestComments());
-  return fetch(`http://localhost:3001/posts/${postId}/comments`, { headers: { Authorization: 'authem' } })
-    .then(response => response.json())
-    .then(comments => dispatch(receiveComments(comments)));
+  return new Promise((resolve, reject) => {
+    fetch(`http://localhost:3001/posts/${postId}/comments`, { headers: { Authorization: 'authem' } })
+      .then(data => data.json())
+      .then((jsonData) => {
+        resolve({ [postId]: jsonData });
+      })
+      .catch(error => reject(error));
+  })
+    .then((result) => {
+      dispatch(receiveComments(postId, result[postId]));
+    }).catch((error) => {
+      throw (error);
+    });
 };

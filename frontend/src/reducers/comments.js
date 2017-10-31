@@ -19,7 +19,7 @@ const handleRequestOrderComments = (state, orderDesc = state.orderDesc, orderBy 
 
 const comments = (state = {
   isFetching: false,
-  items: [],
+  items: {},
   orderDesc: true,
   orderBy: 'voteScore',
 }, action) => {
@@ -32,8 +32,11 @@ const comments = (state = {
     case RECEIVE_COMMENTS:
       return {
         ...state,
+        items: {
+          ...state.items,
+          [action.postId]: action.comments,
+        },
         isFetching: false,
-        items: [...state.items, ...action.comments],
         lastUpdated: action.receivedAt,
       };
     case ORDER_COMMENTS:

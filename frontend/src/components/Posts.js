@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Card from 'material-ui/Card';
 import PostHeader from './PostHeader';
@@ -17,12 +18,11 @@ class Posts extends Component {
 
   handleGetCommentCount = (postId) => {
     const { comments } = this.props;
-    return comments.items.reduce((result, comment) => {
-      if (comment.parentId === postId) {
-        result += 1;
-      }
-      return result;
-    }, 0);
+    if (comments.items[postId]) {
+      return comments.items[postId].length;
+    }
+
+    return 0;
   }
 
   render() {
@@ -30,21 +30,23 @@ class Posts extends Component {
     return (
       <div>
         {posts.items.filter(this.filterByCategory).map(post => (
-          <Card key={post.id} className="card-container">
-            <PostHeader
-              title={post.title}
-              author={post.author}
-              date={post.timestamp}
-            />
-            <PostContent
-              content={post.body}
-            />
-            <PostFooter
-              postId={post.id}
-              voteCount={post.voteScore}
-              commentCount={this.handleGetCommentCount(post.id)}
-            />
-          </Card>
+          <Link key={post.id} to={`/${post.category}/${post.id}`} className="post-link">
+            <Card className="card-container">
+              <PostHeader
+                title={post.title}
+                author={post.author}
+                date={post.timestamp}
+              />
+              <PostContent
+                content={post.body}
+              />
+              <PostFooter
+                postId={post.id}
+                voteCount={post.voteScore}
+                commentCount={this.handleGetCommentCount(post.id)}
+              />
+            </Card>
+          </Link>
         ))}
       </div>
     );
