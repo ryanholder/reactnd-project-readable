@@ -40,12 +40,14 @@ const VoteUpDown = (props) => {
   return (
     <div>
       <IconButton
+        color={props.color}
         aria-label="Vote Up"
         onClick={handleVoteUp}
       >
         <ThumbUpIcon />
       </IconButton>
       <IconButton
+        color={props.color}
         aria-label="Vote Down"
         onClick={handleVoteDown}
       >
