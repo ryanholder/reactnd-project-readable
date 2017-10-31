@@ -11,7 +11,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import { fetchCategories } from '../actions/categories';
 
-class Navigation extends Component {
+class PostViewNavigation extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     categories: PropTypes.shape({
@@ -101,4 +101,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(Navigation);
+export default connect(mapStateToProps)(PostViewNavigation);
