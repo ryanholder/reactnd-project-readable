@@ -23,7 +23,6 @@ export const votePostDownSuccess = post => ({
 });
 
 export const votePostUp = postId => (dispatch, getState) => {
-  const state = getState();
   const request = new Request(`${POSTS_URL}/${postId}`, {
     method: 'POST',
     body: JSON.stringify({ option: 'upVote' }),
@@ -32,12 +31,10 @@ export const votePostUp = postId => (dispatch, getState) => {
 
   return fetch(request)
     .then(response => response.json())
-    .then(post => dispatch(votePostUpSuccess(post)))
-    .then(() => dispatch(orderPosts(state.posts.orderDesc, state.posts.orderBy)));
+    .then(post => dispatch(votePostUpSuccess(post)));
 };
 
 export const votePostDown = postId => (dispatch, getState) => {
-  const state = getState();
   const request = new Request(`${POSTS_URL}/${postId}`, {
     method: 'POST',
     body: JSON.stringify({ option: 'downVote' }),
@@ -46,8 +43,7 @@ export const votePostDown = postId => (dispatch, getState) => {
 
   return fetch(request)
     .then(response => response.json())
-    .then(post => dispatch(votePostDownSuccess(post)))
-    .then(() => dispatch(orderPosts(state.posts.orderDesc, state.posts.orderBy)));
+    .then(post => dispatch(votePostDownSuccess(post)));
 };
 
 export const voteCommentUpSuccess = comment => ({

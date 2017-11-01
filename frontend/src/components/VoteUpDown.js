@@ -5,6 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import ThumbUpIcon from 'material-ui-icons/ThumbUp';
 import ThumbDownIcon from 'material-ui-icons/ThumbDown';
 import { votePostUp, votePostDown } from '../actions/votes';
+import { orderPosts } from '../actions/posts';
 import PostVoteCount from './PostVoteCount';
 
 const VoteUpDown = (props) => {
@@ -15,7 +16,8 @@ const VoteUpDown = (props) => {
 
     switch (voteType) {
       case 'post':
-        dispatch(votePostUp(postId));
+        dispatch(votePostUp(postId))
+          .then(() => dispatch(orderPosts(props.posts.orderDesc, props.posts.orderBy)));
         break;
       case 'comment':
         break;
@@ -29,7 +31,8 @@ const VoteUpDown = (props) => {
 
     switch (voteType) {
       case 'post':
-        dispatch(votePostDown(postId));
+        dispatch(votePostDown(postId))
+          .then(() => dispatch(orderPosts(props.posts.orderDesc, props.posts.orderBy)));
         break;
       case 'comment':
         break;
@@ -65,14 +68,19 @@ VoteUpDown.propTypes = {
   dispatch: PropTypes.func.isRequired,
   voteType: PropTypes.string.isRequired,
   postId: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
+  color: PropTypes.string,
   voteCount: PropTypes.number.isRequired,
 };
 
+VoteUpDown.defaultProps = {
+  color: 'default',
+};
+
 function mapStateToProps(state) {
+  const { posts, comments } = state;
   return {
-    posts: state.posts,
-    comments: state.comments,
+    posts,
+    comments,
   };
 }
 
