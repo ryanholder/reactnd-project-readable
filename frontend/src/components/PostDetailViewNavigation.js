@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
-import Typography from 'material-ui/Typography';
-import Button from 'material-ui/Button';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 import Menu, { MenuItem } from 'material-ui/Menu';
+import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { fetchCategories } from '../actions/categories';
 
 class PostDetailViewNavigation extends Component {
@@ -39,10 +38,10 @@ class PostDetailViewNavigation extends Component {
   };
 
   render() {
-    const { category, categories } = this.props;
+    const { category, categories, postId } = this.props;
     return (
       <AppBar position="static" color="primary">
-        <Toolbar className="nav-toolbar">
+        <Toolbar className="post-detail nav-toolbar">
           <IconButton
             color="contrast"
             aria-label="Close"
@@ -51,7 +50,12 @@ class PostDetailViewNavigation extends Component {
             <CloseIcon />
           </IconButton>
           <div className="appTitle" />
-
+          <IconButton
+            color="contrast"
+            aria-label="More"
+          >
+            <MoreVertIcon />
+          </IconButton>
         </Toolbar>
       </AppBar>
     );
@@ -66,7 +70,9 @@ PostDetailViewNavigation.propTypes = {
     items: PropTypes.array,
   }).isRequired,
   category: PropTypes.string.isRequired,
-  history: PropTypes.array.isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => {
