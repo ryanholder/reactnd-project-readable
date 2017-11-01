@@ -36,13 +36,14 @@ class Posts extends Component {
                 title={post.title}
                 author={post.author}
                 date={post.timestamp}
+                voteCount={post.voteScore}
+                postId={post.id}
               />
               <PostContent
                 content={post.body}
               />
               <PostFooter
                 postId={post.id}
-                voteCount={post.voteScore}
                 commentCount={this.handleGetCommentCount(post.id)}
               />
             </Card>
