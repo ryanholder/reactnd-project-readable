@@ -5,7 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import CommentIcon from 'material-ui-icons/Comment';
 
 const PostCommentCount = props => (
-  <div>
+  <div className="post-comment-count">
     <IconButton
       aria-label="Comments"
       disabled

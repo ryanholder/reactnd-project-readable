@@ -9,9 +9,40 @@ body {
   text-decoration: none;
 }
 
+.post-detail-view-counts {
+  display: inline-flex;
+  /*position: fixed;*/
+  /*top: 16px;*/
+  /*right: 16px*/
+}
+
+.post-detail-view-counts .post-chip {
+  height: 24px;
+}
+
+.post-detail-view-counts .post-chip > div {
+  height: 24px;
+  width: 24px;
+}
+
 .inline-chip {
   margin-right: 8px;
   display: inline-flex !important;
+}
+
+.post-chip {
+  margin-right: 8px;
+}
+
+.post-vote-count,
+.post-comment-count {
+  display: inline-flex;
+}
+
+.card-header {
+  flex-direction: row-reverse;
+  padding-right: 0 !important;
+  padding-bottom: 16px !important;
 }
 
 .card-container {
@@ -46,6 +77,10 @@ body {
 
 .nav-toolbar {
   padding-left: 9px !important;
+}
+
+.post-detail.nav-toolbar {
+  padding-right: 9px !important;
 }
 
 .appTitle {

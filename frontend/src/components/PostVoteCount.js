@@ -4,7 +4,7 @@ import IconButton from 'material-ui/IconButton';
 import ThumbsUpDown from 'material-ui-icons/ThumbsUpDown';
 
 const PostVoteCount = props => (
-  <div>
+  <div className="post-vote-count">
     <IconButton
       aria-label="Vote Score"
       disabled
