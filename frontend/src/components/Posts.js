@@ -61,7 +61,7 @@ Posts.propTypes = {
   }).isRequired,
   comments: PropTypes.shape({
     isFetching: PropTypes.bool,
-    items: PropTypes.array,
+    items: PropTypes.object,
   }).isRequired,
   category: PropTypes.string.isRequired,
   // dispatch: PropTypes.func.isRequired,

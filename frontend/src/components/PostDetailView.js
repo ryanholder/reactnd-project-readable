@@ -1,34 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Card from 'material-ui/Card';
-import PostCommentCount from './PostCommentCount';
-import PostVoteCount from './PostVoteCount';
 import PostDetailViewNavigation from './PostDetailViewNavigation';
 import PostHeader from './PostHeader';
 import PostContent from './PostContent';
 
-const PostDetailView = ({ match, history }) => (
-  <div className="post-detail-view">
-    <PostDetailViewNavigation
-      category={match.params.category || 'all'}
-      history={history}
-      postId={match.params.id}
-    />
-    <Card className="card-container">
-      <PostHeader
-        title={'Learn Redux in 10 minutes!'}
-        author={'author'}
-        date={'May'}
-        // voteCount={post.voteScore}
-        // postId={post.id}
+const PostDetailView = (props) => {
+  const { match, history, posts } = props;
+  const activePost = posts.items
+    .filter(post => post.id === match.params.id)
+    .reduce((acc, cur) => Object.assign(acc, cur), {});
+
+  return (
+    <div className="post-detail-view">
+      <PostDetailViewNavigation
+        category={match.params.category || 'all'}
+        history={history}
+        postId={activePost.id}
       />
-      <PostContent
-        content={'body'}
-      />
-    </Card>
-  </div>
-);
+      <Card className="card-container">
+        <PostHeader
+          title={activePost.title}
+          author={activePost.author}
+          date={activePost.timestamp}
+          voteCount={activePost.voteScore}
+          postId={activePost.id}
+        />
+        <PostContent
+          content={activePost.body}
+        />
+      </Card>
+    </div>
+  );
+};
 
 PostDetailView.propTypes = {
   match: PropTypes.shape({
@@ -36,6 +41,10 @@ PostDetailView.propTypes = {
   }).isRequired,
   history: PropTypes.shape({
     goBack: PropTypes.func,
+  }).isRequired,
+  posts: PropTypes.shape({
+    items: PropTypes.array,
+    activePost: PropTypes.object,
   }).isRequired,
 };
 

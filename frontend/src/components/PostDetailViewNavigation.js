@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
-import Menu, { MenuItem } from 'material-ui/Menu';
+// import Menu, { MenuItem } from 'material-ui/Menu';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { fetchCategories } from '../actions/categories';
 
@@ -38,7 +38,7 @@ class PostDetailViewNavigation extends Component {
   };
 
   render() {
-    const { category, categories, postId } = this.props;
+    // const { category, categories, postId } = this.props;
     return (
       <AppBar position="static" color="primary">
         <Toolbar className="post-detail nav-toolbar">

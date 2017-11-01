@@ -4,8 +4,6 @@ import { CardActions } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import PostCommentCount from './PostCommentCount';
-import PostVoteCount from './PostVoteCount';
-import VoteUpDown from './VoteUpDown';
 
 const PostFooter = props => (
   <CardActions disableActionSpacing>
