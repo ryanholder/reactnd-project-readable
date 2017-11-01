@@ -1,16 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CardHeader } from 'material-ui/Card';
-import Avatar from 'material-ui/Avatar';
-import Chip from 'material-ui/Chip';
-import IconButton from 'material-ui/IconButton';
-import PersonIcon from 'material-ui-icons/Person';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
-import AccessTimeIcon from 'material-ui-icons/AccessTime';
-import PostCommentCount from './PostCommentCount';
-import PostVoteCount from './PostVoteCount';
-import VoteUpDown from './VoteUpDown';
 import Timestamp from 'react-timestamp';
 import Typography from 'material-ui/Typography';
+import Avatar from 'material-ui/Avatar';
+import Chip from 'material-ui/Chip';
+import PersonIcon from 'material-ui-icons/Person';
+import AccessTimeIcon from 'material-ui-icons/AccessTime';
+import VoteUpDown from './VoteUpDown';
 
 const PostHeader = props => (
   <div className="post-header">
@@ -57,5 +54,13 @@ const PostHeader = props => (
     />
   </div>
 );
+
+PostHeader.propTypes = {
+  postId: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  date: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  voteCount: PropTypes.number.isRequired,
+};
 
 export default PostHeader;

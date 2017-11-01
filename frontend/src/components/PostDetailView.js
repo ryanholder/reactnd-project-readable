@@ -31,8 +31,12 @@ const PostDetailView = ({ match, history }) => (
 );
 
 PostDetailView.propTypes = {
-  match: PropTypes.array.isRequired,
-  history: PropTypes.array.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.object,
+  }).isRequired,
+  history: PropTypes.shape({
+    goBack: PropTypes.func,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => {

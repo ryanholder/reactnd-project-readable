@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import ThumbsUpDown from 'material-ui-icons/ThumbsUpDown';
@@ -15,5 +16,9 @@ const PostVoteCount = props => (
     </IconButton>
   </div>
 );
+
+PostVoteCount.propTypes = {
+  voteCount: PropTypes.number.isRequired,
+};
 
 export default PostVoteCount;

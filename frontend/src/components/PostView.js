@@ -16,7 +16,9 @@ const PostView = ({ match }) => (
 );
 
 PostView.propTypes = {
-  match: PropTypes.array.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.object,
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => {

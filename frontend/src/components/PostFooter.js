@@ -21,9 +21,7 @@ const PostFooter = props => (
 );
 
 PostFooter.propTypes = {
-  postId: PropTypes.string.isRequired,
   commentCount: PropTypes.number.isRequired,
-  voteCount: PropTypes.number.isRequired,
 };
 
 export default PostFooter;
