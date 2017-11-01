@@ -5,6 +5,7 @@ import IconButton from 'material-ui/IconButton';
 import ThumbUpIcon from 'material-ui-icons/ThumbUp';
 import ThumbDownIcon from 'material-ui-icons/ThumbDown';
 import { votePostUp, votePostDown } from '../actions/votes';
+import PostVoteCount from './PostVoteCount';
 
 const VoteUpDown = (props) => {
   const { dispatch } = props;
@@ -53,6 +54,9 @@ const VoteUpDown = (props) => {
       >
         <ThumbDownIcon />
       </IconButton>
+      <PostVoteCount
+        voteCount={props.voteCount}
+      />
     </div>
   );
 };
@@ -61,6 +65,8 @@ VoteUpDown.propTypes = {
   dispatch: PropTypes.func.isRequired,
   voteType: PropTypes.string.isRequired,
   postId: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  voteCount: PropTypes.number.isRequired,
 };
 
 function mapStateToProps(state) {

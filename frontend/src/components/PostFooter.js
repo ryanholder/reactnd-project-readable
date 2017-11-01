@@ -12,17 +12,11 @@ const PostFooter = props => (
     <PostCommentCount
       commentCount={props.commentCount}
     />
-    <PostVoteCount
-      voteCount={props.voteCount}
-    />
     <div className="flex-grow" />
-    <VoteUpDown
-      postId={props.postId}
-      voteType={'post'}
-    />
     <IconButton aria-label="More">
       <MoreVertIcon />
     </IconButton>
+
   </CardActions>
 );
 
