@@ -5,6 +5,7 @@ import Card from 'material-ui/Card';
 import PostDetailViewNavigation from './PostDetailViewNavigation';
 import PostHeader from './PostHeader';
 import PostContent from './PostContent';
+import PostComments from './PostComments';
 
 const PostDetailView = (props) => {
   const { match, history, posts } = props;
@@ -31,6 +32,9 @@ const PostDetailView = (props) => {
           content={activePost.body}
         />
       </Card>
+      <PostComments
+        postId={activePost.id}
+      />
     </div>
   );
 };

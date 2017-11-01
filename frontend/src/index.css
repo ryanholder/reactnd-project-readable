@@ -39,6 +39,14 @@ body {
   display: inline-flex;
 }
 
+.comments-title {
+  /*padding: 16px;*/
+}
+
+.comments-toolbar {
+  padding-left: 9px !important;
+}
+
 .card-header {
   flex-direction: row-reverse;
   padding-right: 0 !important;
