@@ -1,5 +1,5 @@
-import { POSTS_URL, orderPosts } from './posts';
-import { COMMENTS_URL, orderComments } from './comments';
+import { POSTS_URL } from './posts';
+import { COMMENTS_URL } from './comments';
 
 const headers = {
   Authorization: 'authem',
@@ -66,8 +66,8 @@ export const voteCommentUp = commentId => (dispatch, getState) => {
 
   return fetch(request)
     .then(response => response.json())
-    .then(comment => dispatch(voteCommentUpSuccess(comment)))
-    .then(() => dispatch(orderComments(state.comments.orderDesc, state.comments.orderBy)));
+    .then(comment => dispatch(voteCommentUpSuccess(comment)));
+    // .then(() => dispatch(orderComments(state.comments.orderDesc, state.comments.orderBy)));
 };
 
 export const voteCommentDown = commentId => (dispatch, getState) => {
@@ -80,6 +80,6 @@ export const voteCommentDown = commentId => (dispatch, getState) => {
 
   return fetch(request)
     .then(response => response.json())
-    .then(comment => dispatch(voteCommentDownSuccess(comment)))
-    .then(() => dispatch(orderComments(state.comments.orderDesc, state.comments.orderBy)));
+    .then(comment => dispatch(voteCommentDownSuccess(comment)));
+    // .then(() => dispatch(orderComments(state.comments.orderDesc, state.comments.orderBy)));
 };
