@@ -1,4 +1,4 @@
-export const COMMENTS_URL = 'http://localhost:3001/comments/';
+export const COMMENTS_URL = 'http://localhost:3001/comments';
 
 export const REQUEST_COMMENTS = 'REQUEST_COMMENTS';
 export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
@@ -15,10 +15,11 @@ export const receiveComments = (postId, comments) => ({
   receivedAt: Date.now(),
 });
 
-export const orderComments = (orderDesc, orderBy) => ({
+export const orderComments = (orderDesc, orderBy, parentId) => ({
   type: ORDER_COMMENTS,
   orderDesc,
   orderBy,
+  parentId,
 });
 
 export const fetchComments = postId => (dispatch) => {

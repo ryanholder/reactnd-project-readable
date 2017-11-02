@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CardHeader } from 'material-ui/Card';
 import Timestamp from 'react-timestamp';
+import { CardHeader } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
@@ -16,7 +16,7 @@ const PostHeader = props => (
       avatar={
         <div>
           <VoteUpDown
-            postId={props.postId}
+            id={props.postId}
             voteType={'post'}
             voteCount={props.voteCount}
           />

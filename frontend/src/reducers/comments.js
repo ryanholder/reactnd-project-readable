@@ -6,10 +6,15 @@ import {
   VOTE_COMMENT_UP_SUCCESS, VOTE_COMMENT_DOWN_SUCCESS,
 } from '../actions/votes';
 
-const handleRequestOrderComments = (state, orderDesc = state.orderDesc, orderBy = state.orderBy) => {
+const handleRequestOrderComments = (
+  state,
+  orderDesc = state.orderDesc,
+  orderBy = state.orderBy,
+  parentId,
+) => {
   orderDesc
-    ? state.items.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
-    : state.items.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
+    ? state.items[parentId].sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
+    : state.items[parentId].sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
   return {
     ...state,
     orderDesc,
@@ -40,31 +45,39 @@ const comments = (state = {
         lastUpdated: action.receivedAt,
       };
     case ORDER_COMMENTS:
-      return handleRequestOrderComments(state, action.orderDesc, action.orderBy);
-    case VOTE_COMMENT_UP_SUCCESS:
+      return handleRequestOrderComments(state, action.orderDesc, action.orderBy, action.parentId);
+    case VOTE_COMMENT_UP_SUCCESS: {
+      const parentId = action.comment.parentId;
       return {
         ...state,
-        items: [
-          ...state.items.map((item) => {
-            if (item.id === action.comment.id) {
-              return { ...item, voteScore: action.comment.voteScore };
-            }
-            return item;
-          }),
-        ],
+        items: {
+          [parentId]: [
+            ...state.items[parentId].map((item) => {
+              if (item.id === action.comment.id) {
+                return { ...item, voteScore: action.comment.voteScore };
+              }
+              return item;
+            }),
+          ],
+        },
       };
-    case VOTE_COMMENT_DOWN_SUCCESS:
+    }
+    case VOTE_COMMENT_DOWN_SUCCESS: {
+      const parentId = action.comment.parentId;
       return {
         ...state,
-        items: [
-          ...state.items.map((item) => {
-            if (item.id === action.comment.id) {
-              return { ...item, voteScore: action.comment.voteScore };
-            }
-            return item;
-          }),
-        ],
+        items: {
+          [parentId]: [
+            ...state.items[parentId].map((item) => {
+              if (item.id === action.comment.id) {
+                return { ...item, voteScore: action.comment.voteScore };
+              }
+              return item;
+            }),
+          ],
+        },
       };
+    }
     default:
       return state;
   }

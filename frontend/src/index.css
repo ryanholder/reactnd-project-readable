@@ -9,18 +9,21 @@ body {
   text-decoration: none;
 }
 
-.post-detail-view-counts {
+.post-detail-view-counts,
+.comment-detail-view-counts {
   display: inline-flex;
   /*position: fixed;*/
   /*top: 16px;*/
   /*right: 16px*/
 }
 
-.post-detail-view-counts .post-chip {
+.post-detail-view-counts .post-chip,
+.comment-detail-view-counts .comment-chip {
   height: 24px;
 }
 
-.post-detail-view-counts .post-chip > div {
+.post-detail-view-counts .post-chip > div,
+.comment-detail-view-counts .comment-chip > div {
   height: 24px;
   width: 24px;
 }

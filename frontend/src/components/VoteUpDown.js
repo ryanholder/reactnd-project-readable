@@ -4,37 +4,58 @@ import { connect } from 'react-redux';
 import IconButton from 'material-ui/IconButton';
 import ThumbUpIcon from 'material-ui-icons/ThumbUp';
 import ThumbDownIcon from 'material-ui-icons/ThumbDown';
-import { votePostUp, votePostDown } from '../actions/votes';
+import { votePostUp, votePostDown, voteCommentUp, voteCommentDown } from '../actions/votes';
 import { orderPosts } from '../actions/posts';
+import { orderComments } from '../actions/comments';
 import PostVoteCount from './PostVoteCount';
 
 const VoteUpDown = (props) => {
   const { dispatch } = props;
 
-  const handleVoteUp = (e, voteType = props.voteType, postId = props.postId) => {
+  const handleVoteUp = (
+    e,
+    voteType = props.voteType,
+    id = props.id,
+    parentId = props.parentId,
+  ) => {
     e.preventDefault();
 
     switch (voteType) {
       case 'post':
-        dispatch(votePostUp(postId))
-          .then(() => dispatch(orderPosts(props.posts.orderDesc, props.posts.orderBy)));
+        dispatch(votePostUp(id))
+          .then(() => dispatch(
+            orderPosts(props.posts.orderDesc, props.posts.orderBy)),
+          );
         break;
       case 'comment':
+        dispatch(voteCommentUp(id))
+          .then(() => dispatch(
+            orderComments(props.comments.orderDesc, props.comments.orderBy, parentId)),
+          );
         break;
       default:
         break;
     }
   };
 
-  const handleVoteDown = (e, voteType = props.voteType, postId = props.postId) => {
+  const handleVoteDown = (
+    e,
+    voteType = props.voteType,
+    id = props.id,
+    parentId = props.parentId,
+  ) => {
     e.preventDefault();
 
     switch (voteType) {
       case 'post':
-        dispatch(votePostDown(postId))
+        dispatch(votePostDown(id))
           .then(() => dispatch(orderPosts(props.posts.orderDesc, props.posts.orderBy)));
         break;
       case 'comment':
+        dispatch(voteCommentDown(id))
+          .then(() => dispatch(
+            orderComments(props.comments.orderDesc, props.comments.orderBy, parentId)),
+          );
         break;
       default:
         break;
@@ -67,13 +88,15 @@ const VoteUpDown = (props) => {
 VoteUpDown.propTypes = {
   dispatch: PropTypes.func.isRequired,
   voteType: PropTypes.string.isRequired,
-  postId: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  parentId: PropTypes.string,
   color: PropTypes.string,
   voteCount: PropTypes.number.isRequired,
 };
 
 VoteUpDown.defaultProps = {
   color: 'default',
+  parentId: '',
 };
 
 function mapStateToProps(state) {

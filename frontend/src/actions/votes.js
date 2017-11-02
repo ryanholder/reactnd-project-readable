@@ -56,8 +56,7 @@ export const voteCommentDownSuccess = comment => ({
   comment,
 });
 
-export const voteCommentUp = commentId => (dispatch, getState) => {
-  const state = getState();
+export const voteCommentUp = commentId => (dispatch) => {
   const request = new Request(`${COMMENTS_URL}/${commentId}`, {
     method: 'POST',
     body: JSON.stringify({ option: 'upVote' }),
@@ -67,11 +66,9 @@ export const voteCommentUp = commentId => (dispatch, getState) => {
   return fetch(request)
     .then(response => response.json())
     .then(comment => dispatch(voteCommentUpSuccess(comment)));
-    // .then(() => dispatch(orderComments(state.comments.orderDesc, state.comments.orderBy)));
 };
 
-export const voteCommentDown = commentId => (dispatch, getState) => {
-  const state = getState();
+export const voteCommentDown = commentId => (dispatch) => {
   const request = new Request(`${COMMENTS_URL}/${commentId}`, {
     method: 'POST',
     body: JSON.stringify({ option: 'downVote' }),
@@ -81,5 +78,4 @@ export const voteCommentDown = commentId => (dispatch, getState) => {
   return fetch(request)
     .then(response => response.json())
     .then(comment => dispatch(voteCommentDownSuccess(comment)));
-    // .then(() => dispatch(orderComments(state.comments.orderDesc, state.comments.orderBy)));
 };
