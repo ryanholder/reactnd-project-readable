@@ -20,21 +20,23 @@ const PostDetailView = (props) => {
         history={history}
         postId={activePost.id}
       />
-      <Card className="card-container">
-        <PostHeader
-          title={activePost.title}
-          author={activePost.author}
-          date={activePost.timestamp}
-          voteCount={activePost.voteScore}
+      <div className="grid-container">
+        <Card className="card-container">
+          <PostHeader
+            title={activePost.title}
+            author={activePost.author}
+            date={activePost.timestamp}
+            voteCount={activePost.voteScore}
+            postId={activePost.id}
+          />
+          <PostContent
+            content={activePost.body}
+          />
+        </Card>
+        <PostComments
           postId={activePost.id}
         />
-        <PostContent
-          content={activePost.body}
-        />
-      </Card>
-      <PostComments
-        postId={activePost.id}
-      />
+      </div>
     </div>
   );
 };

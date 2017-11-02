@@ -7,6 +7,7 @@ import Avatar from 'material-ui/Avatar';
 import Chip from 'material-ui/Chip';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
+import { ListItemText } from 'material-ui/List';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
@@ -54,19 +55,17 @@ const PostComments = (props) => {
                     parentId={comment.parentId}
                     voteCount={comment.voteScore}
                   />
+                  <IconButton aria-label="More">
+                    <MoreVertIcon />
+                  </IconButton>
                 </div>
               }
               title={
                 <div className="comment-detail-view-counts">
-                  <Chip
-                    avatar={
-                      <Avatar>
-                        <PersonIcon />
-                      </Avatar>
-                    }
-                    label={comment.author}
-                    className="comment-chip"
-                  />
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
+                  <ListItemText primary={comment.author} secondary="Jan 7, 2016" />
                 </div>
               }
             />
@@ -75,13 +74,13 @@ const PostComments = (props) => {
                 {comment.body}
               </Typography>
             </CardContent>
-            <CardActions disableActionSpacing>
+            {/* <CardActions disableActionSpacing>
               <div className="flex-grow" />
               <IconButton aria-label="More">
                 <MoreVertIcon />
               </IconButton>
 
-            </CardActions>
+            </CardActions> */}
             <Divider light />
           </div>
         ))}

@@ -63,7 +63,7 @@ const VoteUpDown = (props) => {
   };
 
   return (
-    <div>
+    <div className="vote-up-down">
       <IconButton
         color={props.color}
         aria-label="Vote Up"
