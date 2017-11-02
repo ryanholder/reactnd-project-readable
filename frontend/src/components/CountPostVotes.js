@@ -4,7 +4,7 @@ import Badge from 'material-ui/Badge';
 import IconButton from 'material-ui/IconButton';
 import ThumbsUpDown from 'material-ui-icons/ThumbsUpDown';
 
-const PostVoteCount = props => (
+const CountPostVotes = props => (
   <div className="post-vote-count">
     <IconButton
       aria-label="Vote Score"
@@ -17,8 +17,8 @@ const PostVoteCount = props => (
   </div>
 );
 
-PostVoteCount.propTypes = {
+CountPostVotes.propTypes = {
   voteCount: PropTypes.number.isRequired,
 };
 
-export default PostVoteCount;
+export default CountPostVotes;

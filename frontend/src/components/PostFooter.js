@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { CardActions } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
-import PostCommentCount from './PostCommentCount';
+import CountPostComments from './CountPostComments';
 
 const PostFooter = props => (
   <CardActions disableActionSpacing>
-    <PostCommentCount
+    <CountPostComments
       commentCount={props.commentCount}
     />
     <div className="flex-grow" />

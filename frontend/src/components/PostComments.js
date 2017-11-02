@@ -14,7 +14,7 @@ import Divider from 'material-ui/Divider';
 import Button from 'material-ui/Button';
 import PersonIcon from 'material-ui-icons/Person';
 import AccessTimeIcon from 'material-ui-icons/AccessTime';
-import PostCommentCount from './PostCommentCount';
+import CountPostComments from './CountPostComments';
 import VoteUpDown from './VoteUpDown';
 
 const PostComments = (props) => {
@@ -32,7 +32,7 @@ const PostComments = (props) => {
     <div>
       <AppBar position="static" color="default">
         <Toolbar className="post-detail comments-toolbar">
-          <PostCommentCount
+          <CountPostComments
             commentCount={handleGetCommentCount(postId)}
           />
           <div className="appTitle" />

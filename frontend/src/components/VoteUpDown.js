@@ -7,7 +7,7 @@ import ThumbDownIcon from 'material-ui-icons/ThumbDown';
 import { votePostUp, votePostDown, voteCommentUp, voteCommentDown } from '../actions/votes';
 import { orderPosts } from '../actions/posts';
 import { orderComments } from '../actions/comments';
-import PostVoteCount from './PostVoteCount';
+import CountPostVotes from './CountPostVotes';
 
 const VoteUpDown = (props) => {
   const { dispatch } = props;
@@ -78,7 +78,7 @@ const VoteUpDown = (props) => {
       >
         <ThumbDownIcon />
       </IconButton>
-      <PostVoteCount
+      <CountPostVotes
         voteCount={props.voteCount}
       />
     </div>
