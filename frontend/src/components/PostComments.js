@@ -65,7 +65,10 @@ const PostComments = (props) => {
                   <Avatar>
                     <PersonIcon />
                   </Avatar>
-                  <ListItemText primary={comment.author} secondary="Jan 7, 2016" />
+                  <ListItemText
+                    primary={comment.author}
+                    secondary={<Timestamp time={comment.timestamp / 1000} format="date" />}
+                  />
                 </div>
               }
             />
