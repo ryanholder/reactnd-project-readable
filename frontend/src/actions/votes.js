@@ -6,19 +6,11 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-export const VOTE_POST_UP_SUCCESS = 'VOTE_POST_UP_SUCCESS';
-export const VOTE_POST_DOWN_SUCCESS = 'VOTE_POST_DOWN_SUCCESS';
+export const VOTE_POST_SUCCESS = 'VOTE_POST_SUCCESS';
+export const VOTE_COMMENT_SUCCESS = 'VOTE_COMMENT_SUCCESS';
 
-export const VOTE_COMMENT_UP_SUCCESS = 'VOTE_COMMENT_UP_SUCCESS';
-export const VOTE_COMMENT_DOWN_SUCCESS = 'VOTE_COMMENT_DOWN_SUCCESS';
-
-export const votePostUpSuccess = post => ({
-  type: VOTE_POST_UP_SUCCESS,
-  post,
-});
-
-export const votePostDownSuccess = post => ({
-  type: VOTE_POST_DOWN_SUCCESS,
+export const votePostSuccess = post => ({
+  type: VOTE_POST_SUCCESS,
   post,
 });
 
@@ -31,7 +23,7 @@ export const votePostUp = postId => (dispatch, getState) => {
 
   return fetch(request)
     .then(response => response.json())
-    .then(post => dispatch(votePostUpSuccess(post)));
+    .then(post => dispatch(votePostSuccess(post)));
 };
 
 export const votePostDown = postId => (dispatch, getState) => {
@@ -43,16 +35,11 @@ export const votePostDown = postId => (dispatch, getState) => {
 
   return fetch(request)
     .then(response => response.json())
-    .then(post => dispatch(votePostDownSuccess(post)));
+    .then(post => dispatch(votePostSuccess(post)));
 };
 
-export const voteCommentUpSuccess = comment => ({
-  type: VOTE_COMMENT_UP_SUCCESS,
-  comment,
-});
-
-export const voteCommentDownSuccess = comment => ({
-  type: VOTE_COMMENT_DOWN_SUCCESS,
+export const voteCommentSuccess = comment => ({
+  type: VOTE_COMMENT_SUCCESS,
   comment,
 });
 
@@ -65,7 +52,7 @@ export const voteCommentUp = commentId => (dispatch) => {
 
   return fetch(request)
     .then(response => response.json())
-    .then(comment => dispatch(voteCommentUpSuccess(comment)));
+    .then(comment => dispatch(voteCommentSuccess(comment)));
 };
 
 export const voteCommentDown = commentId => (dispatch) => {
@@ -77,5 +64,5 @@ export const voteCommentDown = commentId => (dispatch) => {
 
   return fetch(request)
     .then(response => response.json())
-    .then(comment => dispatch(voteCommentDownSuccess(comment)));
+    .then(comment => dispatch(voteCommentSuccess(comment)));
 };

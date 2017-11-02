@@ -3,7 +3,7 @@ import {
 } from '../actions/comments';
 
 import {
-  VOTE_COMMENT_UP_SUCCESS, VOTE_COMMENT_DOWN_SUCCESS,
+  VOTE_COMMENT_SUCCESS,
 } from '../actions/votes';
 
 const handleRequestOrderComments = (
@@ -46,23 +46,7 @@ const comments = (state = {
       };
     case ORDER_COMMENTS:
       return handleRequestOrderComments(state, action.orderDesc, action.orderBy, action.parentId);
-    case VOTE_COMMENT_UP_SUCCESS: {
-      const parentId = action.comment.parentId;
-      return {
-        ...state,
-        items: {
-          [parentId]: [
-            ...state.items[parentId].map((item) => {
-              if (item.id === action.comment.id) {
-                return { ...item, voteScore: action.comment.voteScore };
-              }
-              return item;
-            }),
-          ],
-        },
-      };
-    }
-    case VOTE_COMMENT_DOWN_SUCCESS: {
+    case VOTE_COMMENT_SUCCESS: {
       const parentId = action.comment.parentId;
       return {
         ...state,

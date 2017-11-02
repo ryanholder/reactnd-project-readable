@@ -3,7 +3,7 @@ import {
 } from '../actions/posts';
 
 import {
-  VOTE_POST_UP_SUCCESS, VOTE_POST_DOWN_SUCCESS,
+  VOTE_POST_SUCCESS,
 } from '../actions/votes';
 
 const handleRequestOrderPosts = (state, orderDesc = state.orderDesc, orderBy = state.orderBy) => {
@@ -38,19 +38,7 @@ const posts = (state = {
       };
     case ORDER_POSTS:
       return handleRequestOrderPosts(state, action.orderDesc, action.orderBy);
-    case VOTE_POST_UP_SUCCESS:
-      return {
-        ...state,
-        items: [
-          ...state.items.map((item) => {
-            if (item.id === action.post.id) {
-              return { ...item, voteScore: action.post.voteScore };
-            }
-            return item;
-          }),
-        ],
-      };
-    case VOTE_POST_DOWN_SUCCESS:
+    case VOTE_POST_SUCCESS:
       return {
         ...state,
         items: [
