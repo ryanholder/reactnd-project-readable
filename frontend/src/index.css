@@ -112,3 +112,9 @@ body {
 .vote-up-down {
   display: inline-flex;
 }
+
+.category-select {
+  display: flex;
+  position: relative;
+  align-items: center;
+}
