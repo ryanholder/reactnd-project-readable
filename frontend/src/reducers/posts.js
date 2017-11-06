@@ -9,7 +9,11 @@ import {
   VOTE_POST_SUCCESS,
 } from '../actions/votes';
 
-const handleRequestOrderPosts = (state, orderDesc = state.orderDesc, orderBy = state.orderBy) => {
+const handleRequestOrderPosts = (
+  state,
+  orderDesc = state.orderDesc,
+  orderBy = state.orderBy,
+) => {
   orderDesc
     ? state.items.sort((a, b) => (b[orderBy] < a[orderBy] ? -1 : 1))
     : state.items.sort((a, b) => (a[orderBy] < b[orderBy] ? -1 : 1));
