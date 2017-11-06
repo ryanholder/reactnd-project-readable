@@ -1,5 +1,8 @@
 import {
-  REQUEST_POSTS, RECEIVE_POSTS, ORDER_POSTS,
+  REQUEST_POSTS,
+  RECEIVE_POSTS,
+  ORDER_POSTS,
+  ADD_POST_SUCCESS,
 } from '../actions/posts';
 
 import {
@@ -38,6 +41,12 @@ const posts = (state = {
       };
     case ORDER_POSTS:
       return handleRequestOrderPosts(state, action.orderDesc, action.orderBy);
+    case ADD_POST_SUCCESS:
+      return {
+        ...state,
+        items: [...state.items, action.post],
+        lastUpdated: action.receivedAt,
+      };
     case VOTE_POST_SUCCESS:
       return {
         ...state,

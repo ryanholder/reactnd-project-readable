@@ -13,6 +13,7 @@ import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/Menu/MenuItem';
 import Grid from 'material-ui/Grid';
 import Slide from 'material-ui/transitions/Slide';
+import { addNewPost } from '../actions/posts';
 
 const styles = {
   appBar: {
@@ -55,8 +56,9 @@ class AddPostForm extends React.Component {
 
   handleSubmit = (event) => {
     const { dispatch } = this.props;
-    // dispatch(addPost(this.state));
     event.preventDefault();
+    dispatch(addNewPost(this.state));
+    this.props.handleRequestClose();
   };
 
   handleChange = name => (event) => {
