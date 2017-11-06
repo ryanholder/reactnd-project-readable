@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CardActions } from 'material-ui/Card';
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
 import CountPostComments from './CountPostComments';
+import MoreMenuButton from './MoreMenuButton';
 
 const PostFooter = props => (
   <CardActions disableActionSpacing>
@@ -11,10 +10,7 @@ const PostFooter = props => (
       commentCount={props.commentCount}
     />
     <div className="flex-grow" />
-    <IconButton aria-label="More">
-      <MoreVertIcon />
-    </IconButton>
-
+    <MoreMenuButton />
   </CardActions>
 );
 
