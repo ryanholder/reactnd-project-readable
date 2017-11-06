@@ -1,5 +1,8 @@
 import {
-  REQUEST_COMMENTS, RECEIVE_COMMENTS, ORDER_COMMENTS,
+  REQUEST_COMMENTS,
+  RECEIVE_COMMENTS,
+  ORDER_COMMENTS,
+  ADD_COMMENT_SUCCESS,
 } from '../actions/comments';
 
 import {
@@ -46,6 +49,19 @@ const comments = (state = {
       };
     case ORDER_COMMENTS:
       return handleRequestOrderComments(state, action.orderDesc, action.orderBy, action.parentId);
+    case ADD_COMMENT_SUCCESS: {
+      const parentId = action.comment.parentId;
+      return {
+        ...state,
+        items: {
+          [parentId]: [
+            ...state.items[parentId],
+            action.comment,
+          ],
+        },
+        lastUpdated: action.receivedAt,
+      };
+    }
     case VOTE_COMMENT_SUCCESS: {
       const parentId = action.comment.parentId;
       return {

@@ -16,6 +16,7 @@ import PersonIcon from 'material-ui-icons/Person';
 import AccessTimeIcon from 'material-ui-icons/AccessTime';
 import CountPostComments from './CountPostComments';
 import VoteUpDown from './VoteUpDown';
+import AddComment from './AddComment';
 
 const PostComments = (props) => {
   const { comments, postId } = props;
@@ -36,9 +37,9 @@ const PostComments = (props) => {
             commentCount={handleGetCommentCount(postId)}
           />
           <div className="appTitle" />
-          <Button raised color="accent">
-            Add Comment
-          </Button>
+          <AddComment
+            parentId={props.postId}
+          />
         </Toolbar>
       </AppBar>
 
@@ -77,13 +78,6 @@ const PostComments = (props) => {
                 {comment.body}
               </Typography>
             </CardContent>
-            {/* <CardActions disableActionSpacing>
-              <div className="flex-grow" />
-              <IconButton aria-label="More">
-                <MoreVertIcon />
-              </IconButton>
-
-            </CardActions> */}
             <Divider light />
           </div>
         ))}
