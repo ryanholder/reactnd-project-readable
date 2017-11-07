@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { withStyles } from 'material-ui/styles';
 import Dialog from 'material-ui/Dialog';
@@ -50,10 +51,15 @@ class EditPostForm extends React.Component {
   }
 
   handleSubmit = (event) => {
-    const { dispatch } = this.props;
+    const { dispatch, match, history } = this.props;
     event.preventDefault();
-    dispatch(editPost(this.state));
-    this.props.handleEditClose();
+    dispatch(editPost(this.state))
+      .then((response) => {
+        if (response.type === 'EDIT_POST_SUCCESS' && match.params.category !== response.post.category) {
+          history.replace(`/${response.post.category}/${response.post.id}`);
+        }
+        this.props.handleEditClose();
+      });
   };
 
   handleChange = name => (event) => {
@@ -151,8 +157,15 @@ class EditPostForm extends React.Component {
 EditPostForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
+  currentPost: PropTypes.object.isRequired,
   isOpen: PropTypes.bool.isRequired,
   handleEditClose: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    replace: PropTypes.func.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -163,4 +176,4 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps)(withStyles(styles)(EditPostForm));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(EditPostForm)));
