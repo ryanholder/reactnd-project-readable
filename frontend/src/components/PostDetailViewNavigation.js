@@ -7,8 +7,9 @@ import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
 // import Menu, { MenuItem } from 'material-ui/Menu';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
+// import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { fetchCategories } from '../actions/categories';
+import MoreMenuButton from './MoreMenuButton';
 
 class PostDetailViewNavigation extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class PostDetailViewNavigation extends Component {
   };
 
   render() {
-    // const { category, categories, postId } = this.props;
+    const { postId } = this.props;
     return (
       <AppBar position="static" color="primary">
         <Toolbar className="post-detail nav-toolbar">
@@ -51,12 +52,10 @@ class PostDetailViewNavigation extends Component {
             <CloseIcon />
           </IconButton>
           <div className="appTitle" />
-          <IconButton
+          <MoreMenuButton
+            postId={postId}
             color="contrast"
-            aria-label="More"
-          >
-            <MoreVertIcon />
-          </IconButton>
+          />
         </Toolbar>
       </AppBar>
     );
@@ -65,12 +64,7 @@ class PostDetailViewNavigation extends Component {
 
 PostDetailViewNavigation.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  categories: PropTypes.shape({
-    selectedCategory: PropTypes.string,
-    isFetching: PropTypes.bool,
-    items: PropTypes.array,
-  }).isRequired,
-  category: PropTypes.string.isRequired,
+  postId: PropTypes.string.isRequired,
   history: PropTypes.shape({
     goBack: PropTypes.func,
   }).isRequired,
