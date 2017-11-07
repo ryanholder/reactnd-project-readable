@@ -42,6 +42,7 @@ class MoreMenuButton extends React.Component {
           aria-label="More"
           aria-owns={this.state.menuOpen ? 'simple-menu' : null}
           aria-haspopup="true"
+          color={this.props.color}
           onClick={this.handleClick}
         >
           <MoreVertIcon />
@@ -67,6 +68,11 @@ class MoreMenuButton extends React.Component {
 
 MoreMenuButton.propTypes = {
   postId: PropTypes.string.isRequired,
+  color: PropTypes.string,
+};
+
+MoreMenuButton.defaultProps = {
+  color: 'default',
 };
 
 export default MoreMenuButton;
