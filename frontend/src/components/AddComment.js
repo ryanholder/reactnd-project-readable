@@ -23,8 +23,7 @@ class AddComment extends React.Component {
       <div>
         <Button
           onClick={this.handleClickOpen}
-          raised
-          color="accent"
+          color="primary"
         >
           Add Comment
         </Button>

@@ -23,8 +23,7 @@ class AddPost extends React.Component {
       <div>
         <Button
           onClick={this.handleClickOpen}
-          raised
-          color="accent"
+          color="contrast"
         >
           Add Post
         </Button>
