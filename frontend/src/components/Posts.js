@@ -30,9 +30,8 @@ class Posts extends Component {
     return (
       <div>
         {posts.items.filter(this.filterByCategory).map(post => (
-          <Card className="card-container">
+          <Card key={post.id} className="card-container">
             <Link
-              key={post.id}
               to={`/${post.category}/${post.id}`}
               className="post-link"
             >
