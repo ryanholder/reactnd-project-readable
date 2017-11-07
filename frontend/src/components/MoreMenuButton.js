@@ -1,25 +1,38 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
+import EditPostForm from './EditPostForm';
 
 class MoreMenuButton extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       anchorEl: null,
-      open: false,
+      menuOpen: false,
+      editOpen: false,
     };
   }
 
   handleClick = (event) => {
     event.preventDefault();
-    this.setState({ open: true, anchorEl: event.currentTarget });
+    this.setState({ menuOpen: true, anchorEl: event.currentTarget });
   };
 
-  handleRequestClose = (event) => {
+  handleEditPostClick = (event) => {
     event.preventDefault();
-    this.setState({ open: false });
+    this.setState({ editOpen: true });
+    this.setState({ menuOpen: false });
+  };
+
+  handleMenuClose = (event) => {
+    event.preventDefault();
+    this.setState({ menuOpen: false });
+  };
+
+  handleEditClose = () => {
+    this.setState({ editOpen: false });
   };
 
   render() {
@@ -27,7 +40,7 @@ class MoreMenuButton extends React.Component {
       <div>
         <IconButton
           aria-label="More"
-          aria-owns={this.state.open ? 'simple-menu' : null}
+          aria-owns={this.state.menuOpen ? 'simple-menu' : null}
           aria-haspopup="true"
           onClick={this.handleClick}
         >
@@ -36,15 +49,24 @@ class MoreMenuButton extends React.Component {
         <Menu
           id="simple-menu"
           anchorEl={this.state.anchorEl}
-          open={this.state.open}
-          onRequestClose={this.handleRequestClose}
+          open={this.state.menuOpen}
+          onRequestClose={this.handleMenuClose}
         >
-          <MenuItem onClick={this.handleRequestClose}>Edit</MenuItem>
+          <MenuItem onClick={this.handleEditPostClick}>Edit</MenuItem>
           <MenuItem onClick={this.handleRequestClose}>Delete</MenuItem>
         </Menu>
+        <EditPostForm
+          handleEditClose={this.handleEditClose}
+          isOpen={this.state.editOpen}
+          postId={this.props.postId}
+        />
       </div>
     );
   }
 }
+
+MoreMenuButton.propTypes = {
+  postId: PropTypes.string.isRequired,
+};
 
 export default MoreMenuButton;

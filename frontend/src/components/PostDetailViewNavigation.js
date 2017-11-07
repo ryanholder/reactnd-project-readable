@@ -24,8 +24,9 @@ class PostDetailViewNavigation extends Component {
     dispatch(fetchCategories());
   }
 
-  handleGoBack = () => {
+  handleGoBack = (event) => {
     const { history } = this.props;
+    event.stopPropagation();
     history.goBack();
   };
 

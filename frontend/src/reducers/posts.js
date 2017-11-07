@@ -3,6 +3,7 @@ import {
   RECEIVE_POSTS,
   ORDER_POSTS,
   ADD_POST_SUCCESS,
+  EDIT_POST_SUCCESS,
 } from '../actions/posts';
 
 import {
@@ -51,6 +52,40 @@ const posts = (state = {
         items: [...state.items, action.post],
         lastUpdated: action.receivedAt,
       };
+    case EDIT_POST_SUCCESS:
+      return {
+        ...state,
+        items: [
+          ...state.items.map((item) => {
+            if (item.id === action.post.id) {
+              return {
+                ...item,
+                title: action.post.title,
+                body: action.post.body,
+                author: action.post.author,
+                category: action.post.category,
+              };
+            }
+            return item;
+          }),
+        ],
+      };
+      // return state.items.map((item) => {
+      //   if (item.id === action.post.id) {
+      //     return {
+      //       ...item,
+      //       title: action.post.title,
+      //       body: action.post.body,
+      //       author: action.post.author,
+      //       category: action.post.category,
+      //     };
+      //   }
+      // });
+      // return {
+      //   ...state,
+      //   items: [...state.items, action.post],
+      //   lastUpdated: action.receivedAt,
+      // };
     case VOTE_POST_SUCCESS:
       return {
         ...state,

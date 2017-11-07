@@ -13,10 +13,10 @@ export const RECEIVE_POSTS = 'RECEIVE_POSTS';
 
 export const ORDER_POSTS = 'ORDER_POSTS';
 
-export const ADD_NEW_POST = 'ADD_NEW_POST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
+export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
 
 export const requestPosts = () => ({
   type: REQUEST_POSTS,
@@ -71,3 +71,23 @@ export const addNewPost = post => dispatch =>
   })
     .then(response => response.json())
     .then(json => dispatch(addPostSuccess(json)));
+
+export const editPostSuccess = post => ({
+  type: EDIT_POST_SUCCESS,
+  post,
+  receivedAt: Date.now(),
+});
+
+export const editPost = post => dispatch =>
+  fetch(`${POSTS_URL}/${post.id}`, {
+    method: 'PUT',
+    headers,
+    body: JSON.stringify({
+      title: post.title,
+      body: post.body,
+      author: post.author,
+      category: post.category,
+    }),
+  })
+    .then(response => response.json())
+    .then(json => dispatch(editPostSuccess(json)));

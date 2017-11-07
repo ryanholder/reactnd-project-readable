@@ -30,8 +30,12 @@ class Posts extends Component {
     return (
       <div>
         {posts.items.filter(this.filterByCategory).map(post => (
-          <Link key={post.id} to={`/${post.category}/${post.id}`} className="post-link">
-            <Card className="card-container">
+          <Card className="card-container">
+            <Link
+              key={post.id}
+              to={`/${post.category}/${post.id}`}
+              className="post-link"
+            >
               <PostHeader
                 title={post.title}
                 author={post.author}
@@ -42,12 +46,12 @@ class Posts extends Component {
               <PostContent
                 content={post.body}
               />
-              <PostFooter
-                postId={post.id}
-                commentCount={this.handleGetCommentCount(post.id)}
-              />
-            </Card>
-          </Link>
+            </Link>
+            <PostFooter
+              postId={post.id}
+              commentCount={this.handleGetCommentCount(post.id)}
+            />
+          </Card>
         ))}
       </div>
     );

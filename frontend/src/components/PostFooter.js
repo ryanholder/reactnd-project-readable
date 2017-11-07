@@ -10,12 +10,15 @@ const PostFooter = props => (
       commentCount={props.commentCount}
     />
     <div className="flex-grow" />
-    <MoreMenuButton />
+    <MoreMenuButton
+      postId={props.postId}
+    />
   </CardActions>
 );
 
 PostFooter.propTypes = {
   commentCount: PropTypes.number.isRequired,
+  postId: PropTypes.string.isRequired,
 };
 
 export default PostFooter;
