@@ -55,8 +55,10 @@ class EditPostForm extends React.Component {
     event.preventDefault();
     dispatch(editPost(this.state))
       .then((response) => {
-        if (response.type === 'EDIT_POST_SUCCESS' && match.params.category !== response.post.category) {
-          history.replace(`/${response.post.category}/${response.post.id}`);
+        if ('id' in match.params) {
+          if (response.type === 'EDIT_POST_SUCCESS' && match.params.category !== response.post.category) {
+            history.replace(`/${response.post.category}/${response.post.id}`);
+          }
         }
         this.props.handleEditClose();
       });
