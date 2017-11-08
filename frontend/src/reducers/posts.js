@@ -4,6 +4,7 @@ import {
   ORDER_POSTS,
   ADD_POST_SUCCESS,
   EDIT_POST_SUCCESS,
+  DELETE_POST_SUCCESS,
 } from '../actions/posts';
 
 import {
@@ -70,22 +71,21 @@ const posts = (state = {
           }),
         ],
       };
-      // return state.items.map((item) => {
-      //   if (item.id === action.post.id) {
-      //     return {
-      //       ...item,
-      //       title: action.post.title,
-      //       body: action.post.body,
-      //       author: action.post.author,
-      //       category: action.post.category,
-      //     };
-      //   }
-      // });
-      // return {
-      //   ...state,
-      //   items: [...state.items, action.post],
-      //   lastUpdated: action.receivedAt,
-      // };
+    case DELETE_POST_SUCCESS:
+      return {
+        ...state,
+        items: [
+          ...state.items.map((item) => {
+            if (item.id === action.post.id) {
+              return {
+                ...item,
+                deleted: true,
+              };
+            }
+            return item;
+          }),
+        ],
+      };
     case VOTE_POST_SUCCESS:
       return {
         ...state,

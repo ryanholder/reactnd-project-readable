@@ -8,12 +8,17 @@ import PostContent from './PostContent';
 import PostFooter from './PostFooter';
 
 class Posts extends Component {
+  // && !posts.items.deleted
+
   filterByCategory = (post) => {
-    const { category } = this.props;
-    if (category !== 'all') {
-      return post.category === category;
+    if (!post.deleted) {
+      const { category } = this.props;
+      if (category !== 'all') {
+        return post.category === category;
+      }
+      return true;
     }
-    return post;
+    return false;
   }
 
   handleGetCommentCount = (postId) => {

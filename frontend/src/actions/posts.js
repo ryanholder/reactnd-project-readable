@@ -18,6 +18,8 @@ export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
 export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
 
+export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
+
 export const requestPosts = () => ({
   type: REQUEST_POSTS,
 });
@@ -91,3 +93,17 @@ export const editPost = post => dispatch =>
   })
     .then(response => response.json())
     .then(json => dispatch(editPostSuccess(json)));
+
+export const deletePostSuccess = post => ({
+  type: DELETE_POST_SUCCESS,
+  post,
+  deletedAt: Date.now(),
+});
+
+export const deletePost = postId => dispatch =>
+  fetch(`${POSTS_URL}/${postId}`, {
+    method: 'DELETE',
+    headers,
+  })
+    .then(response => response.json())
+    .then(json => dispatch(deletePostSuccess(json)));

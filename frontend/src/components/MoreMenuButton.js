@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Menu, { MenuItem } from 'material-ui/Menu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui-icons/MoreVert';
 import EditPostForm from './EditPostForm';
+import { deletePost } from '../actions/posts';
 
 class MoreMenuButton extends React.Component {
   constructor(props) {
@@ -26,8 +29,19 @@ class MoreMenuButton extends React.Component {
     this.setState({ menuOpen: false });
   };
 
-  handleMenuClose = (event) => {
+  handleDeletePostClick = (event, postId) => {
+    const { dispatch, history, match } = this.props;
     event.preventDefault();
+    dispatch(deletePost(postId))
+      .then((response) => {
+        if (response.type === 'DELETE_POST_SUCCESS' && match.path === '/:category/:id') {
+          history.replace('/');
+        }
+        this.handleMenuClose();
+      });
+  };
+
+  handleMenuClose = () => {
     this.setState({ menuOpen: false });
   };
 
@@ -36,6 +50,7 @@ class MoreMenuButton extends React.Component {
   };
 
   render() {
+    const { postId } = this.props;
     return (
       <div>
         <IconButton
@@ -54,7 +69,7 @@ class MoreMenuButton extends React.Component {
           onRequestClose={this.handleMenuClose}
         >
           <MenuItem onClick={this.handleEditPostClick}>Edit</MenuItem>
-          <MenuItem onClick={this.handleRequestClose}>Delete</MenuItem>
+          <MenuItem onClick={event => this.handleDeletePostClick(event, postId)}>Delete</MenuItem>
         </Menu>
         <EditPostForm
           handleEditClose={this.handleEditClose}
@@ -67,12 +82,27 @@ class MoreMenuButton extends React.Component {
 }
 
 MoreMenuButton.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   postId: PropTypes.string.isRequired,
   color: PropTypes.string,
+  history: PropTypes.shape({
+    replace: PropTypes.func.isRequired,
+  }).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.object.isRequired,
+  }).isRequired,
 };
 
 MoreMenuButton.defaultProps = {
   color: 'default',
 };
 
-export default MoreMenuButton;
+// function mapStateToProps(state, ownProps) {
+//   const { posts } = state;
+//   const { postId } = ownProps;
+//   return {
+//     currentPost: posts.items.filter(post => (post.id === postId))[0],
+//   };
+// }
+
+export default withRouter(connect()(MoreMenuButton));
