@@ -1,27 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import Timestamp from 'react-timestamp';
-import Card, { CardHeader, CardContent, CardActions } from 'material-ui/Card';
+import Card, { CardHeader, CardContent } from 'material-ui/Card';
 import AppBar from 'material-ui/AppBar';
 import Avatar from 'material-ui/Avatar';
-import Chip from 'material-ui/Chip';
 import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
 import { ListItemText } from 'material-ui/List';
-import MoreVertIcon from 'material-ui-icons/MoreVert';
 import Typography from 'material-ui/Typography';
 import Divider from 'material-ui/Divider';
-import Button from 'material-ui/Button';
 import PersonIcon from 'material-ui-icons/Person';
-import AccessTimeIcon from 'material-ui-icons/AccessTime';
 import CountPostComments from './CountPostComments';
 import VoteUpDown from './VoteUpDown';
 import AddComment from './AddComment';
+import EditDeleteComment from './EditDeleteComment';
 
 const PostComments = (props) => {
   const { comments, postId } = props;
 
-  const handleGetCommentCount = (postId) => {
+  const handleGetCommentCount = () => {
     if (comments.items[postId]) {
       return comments.items[postId].length;
     }
@@ -56,9 +53,10 @@ const PostComments = (props) => {
                     parentId={comment.parentId}
                     voteCount={comment.voteScore}
                   />
-                  <IconButton aria-label="More">
-                    <MoreVertIcon />
-                  </IconButton>
+                  <EditDeleteComment
+                    postId={postId}
+                    commentId={comment.id}
+                  />
                 </div>
               }
               title={
@@ -84,6 +82,10 @@ const PostComments = (props) => {
       </Card>
     </div>
   );
+};
+
+PostComments.propTypes = {
+  postId: PropTypes.string.isRequired,
 };
 
 function mapStateToProps(state) {

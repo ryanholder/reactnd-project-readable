@@ -37,6 +37,7 @@ body {
   margin-right: 8px;
 }
 
+.edit-delete-comment,
 .post-vote-count,
 .post-comment-count {
   display: inline-flex;
