@@ -58,8 +58,9 @@ export const addPostFailure = () => ({
   type: ADD_POST_FAILURE,
 });
 
-export const addNewPost = post => dispatch =>
-  fetch(`${POSTS_URL}`, {
+export const addNewPost = post => (dispatch, getState) => {
+  const state = getState();
+  return fetch(`${POSTS_URL}`, {
     method: 'POST',
     headers,
     body: JSON.stringify({
@@ -72,7 +73,11 @@ export const addNewPost = post => dispatch =>
     }),
   })
     .then(response => response.json())
-    .then(json => dispatch(addPostSuccess(json)));
+    .then(data => dispatch(addPostSuccess(data)))
+    .then(data => data.post.id)
+    .then(postId => dispatch(fetchComments(postId)))
+    .then(() => dispatch(orderPosts(state.posts.orderDesc, state.posts.orderBy)));
+};
 
 export const editPostSuccess = post => ({
   type: EDIT_POST_SUCCESS,
