@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CardActions } from 'material-ui/Card';
 import CountPostComments from './CountPostComments';
-import MoreMenuButton from './MoreMenuButton';
+import EditDeletePost from './EditDeletePost';
 
 const PostFooter = props => (
   <CardActions disableActionSpacing>
@@ -10,7 +10,7 @@ const PostFooter = props => (
       commentCount={props.commentCount}
     />
     <div className="flex-grow" />
-    <MoreMenuButton
+    <EditDeletePost
       postId={props.postId}
     />
   </CardActions>

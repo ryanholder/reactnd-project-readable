@@ -9,7 +9,7 @@ import CloseIcon from 'material-ui-icons/Close';
 // import Menu, { MenuItem } from 'material-ui/Menu';
 // import MoreVertIcon from 'material-ui-icons/MoreVert';
 import { fetchCategories } from '../actions/categories';
-import MoreMenuButton from './MoreMenuButton';
+import EditDeletePost from './EditDeletePost';
 
 class PostDetailViewNavigation extends Component {
   constructor(props) {
@@ -52,7 +52,7 @@ class PostDetailViewNavigation extends Component {
             <CloseIcon />
           </IconButton>
           <div className="appTitle" />
-          <MoreMenuButton
+          <EditDeletePost
             postId={postId}
             color="contrast"
           />
