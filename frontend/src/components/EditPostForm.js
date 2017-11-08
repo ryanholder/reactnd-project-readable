@@ -79,7 +79,7 @@ class EditPostForm extends React.Component {
       <Dialog
         fullScreen
         open={this.props.isOpen}
-        // onRequestClose={this.props.handleEditClose}
+        onRequestClose={this.props.handleEditClose}
         transition={Transition}
       >
         <AppBar className={classes.appBar}>
@@ -158,8 +158,20 @@ class EditPostForm extends React.Component {
 
 EditPostForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
-  currentPost: PropTypes.object.isRequired,
+  classes: PropTypes.shape({
+    appBar: PropTypes.string.isRequired,
+    flex: PropTypes.string.isRequired,
+  }).isRequired,
+  currentPost: PropTypes.shape({
+    author: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired,
+    deleted: PropTypes.bool.isRequired,
+    id: PropTypes.string.isRequired,
+    timestamp: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    voteScore: PropTypes.number.isRequired,
+  }).isRequired,
   isOpen: PropTypes.bool.isRequired,
   handleEditClose: PropTypes.func.isRequired,
   history: PropTypes.shape({
