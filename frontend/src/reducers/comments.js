@@ -4,6 +4,7 @@ import {
   ORDER_COMMENTS,
   ADD_COMMENT_SUCCESS,
   EDIT_COMMENT_SUCCESS,
+  DELETE_COMMENT_SUCCESS,
 } from '../actions/comments';
 
 import {
@@ -55,6 +56,7 @@ const comments = (state = {
       return {
         ...state,
         items: {
+          ...state.items,
           [parentId]: [
             ...state.items[parentId],
             action.comment,
@@ -77,6 +79,26 @@ const comments = (state = {
                   body: action.comment.body,
                   author: action.comment.author,
                   timestamp: action.comment.timestamp,
+                };
+              }
+              return item;
+            }),
+          ],
+        },
+      };
+    }
+    case DELETE_COMMENT_SUCCESS: {
+      const parentId = action.comment.parentId;
+      return {
+        ...state,
+        items: {
+          ...state.items,
+          [parentId]: [
+            ...state.items[parentId].map((item) => {
+              if (item.id === action.comment.id) {
+                return {
+                  ...item,
+                  deleted: true,
                 };
               }
               return item;
