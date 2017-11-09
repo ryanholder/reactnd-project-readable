@@ -102,7 +102,10 @@ class EditCommentForm extends React.Component {
 
 EditCommentForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.shape({
+    appBar: PropTypes.string.isRequired,
+    flex: PropTypes.string.isRequired,
+  }).isRequired,
   currentComment: PropTypes.shape({
     id: PropTypes.string.isRequired,
     parentId: PropTypes.string.isRequired,

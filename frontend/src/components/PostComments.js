@@ -18,20 +18,15 @@ import EditDeleteComment from './EditDeleteComment';
 const PostComments = (props) => {
   const { comments, postId } = props;
 
-  const handleGetCommentCount = () => {
-    if (comments.items[postId]) {
-      return comments.items[postId].length;
-    }
-
-    return 0;
-  };
+  const handleGetCommentCount = () =>
+    comments.items[postId].filter(comment => !comment.deleted).length;
 
   return (
     <div>
       <AppBar position="static" color="default">
         <Toolbar className="post-detail comments-toolbar">
           <CountPostComments
-            commentCount={handleGetCommentCount(postId)}
+            commentCount={handleGetCommentCount()}
           />
           <div className="appTitle" />
           <AddComment
@@ -42,42 +37,44 @@ const PostComments = (props) => {
 
       <Card>
         {comments.items[postId].map(comment => (
-          <div key={comment.id}>
-            <CardHeader
-              className="card-header"
-              avatar={
-                <div>
-                  <VoteUpDown
-                    id={comment.id}
-                    voteType={'comment'}
-                    parentId={comment.parentId}
-                    voteCount={comment.voteScore}
-                  />
-                  <EditDeleteComment
-                    postId={postId}
-                    commentId={comment.id}
-                  />
-                </div>
-              }
-              title={
-                <div className="comment-detail-view-counts">
-                  <Avatar>
-                    <PersonIcon />
-                  </Avatar>
-                  <ListItemText
-                    primary={comment.author}
-                    secondary={<Timestamp time={comment.timestamp / 1000} format="date" />}
-                  />
-                </div>
-              }
-            />
-            <CardContent>
-              <Typography component="p">
-                {comment.body}
-              </Typography>
-            </CardContent>
-            <Divider light />
-          </div>
+          !comment.deleted ?
+            <div key={comment.id}>
+              <CardHeader
+                className="card-header"
+                avatar={
+                  <div>
+                    <VoteUpDown
+                      id={comment.id}
+                      voteType={'comment'}
+                      parentId={comment.parentId}
+                      voteCount={comment.voteScore}
+                    />
+                    <EditDeleteComment
+                      postId={postId}
+                      commentId={comment.id}
+                    />
+                  </div>
+                }
+                title={
+                  <div className="comment-detail-view-counts">
+                    <Avatar>
+                      <PersonIcon />
+                    </Avatar>
+                    <ListItemText
+                      primary={comment.author}
+                      secondary={<Timestamp time={comment.timestamp / 1000} format="date" />}
+                    />
+                  </div>
+                }
+              />
+              <CardContent>
+                <Typography component="p">
+                  {comment.body}
+                </Typography>
+              </CardContent>
+              <Divider light />
+            </div>
+            : null
         ))}
       </Card>
     </div>
@@ -86,6 +83,9 @@ const PostComments = (props) => {
 
 PostComments.propTypes = {
   postId: PropTypes.string.isRequired,
+  comments: PropTypes.shape({
+    items: PropTypes.object,
+  }).isRequired,
 };
 
 function mapStateToProps(state) {

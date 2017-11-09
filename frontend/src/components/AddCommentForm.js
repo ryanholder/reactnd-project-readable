@@ -76,7 +76,7 @@ class AddCommentForm extends React.Component {
         </AppBar>
         <form id="addComment" className="grid-container" onSubmit={this.handleSubmit}>
           <Grid container spacing={24}>
-            <Grid item xs={6}>
+            <Grid item xs={12}>
               <TextField
                 value={this.state.author}
                 onChange={this.handleChange('author')}

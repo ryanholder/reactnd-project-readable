@@ -8,8 +8,6 @@ import PostContent from './PostContent';
 import PostFooter from './PostFooter';
 
 class Posts extends Component {
-  // && !posts.items.deleted
-
   filterByCategory = (post) => {
     if (!post.deleted) {
       const { category } = this.props;
