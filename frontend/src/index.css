@@ -95,10 +95,6 @@ body {
   padding-right: 9px !important;
 }
 
-.appTitle {
-  flex: 1;
-}
-
 .appTitle > button {
   margin-left: 10px;
 }

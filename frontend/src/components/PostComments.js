@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Timestamp from 'react-timestamp';
 import Card, { CardHeader, CardContent } from 'material-ui/Card';
@@ -16,83 +15,72 @@ import AddComment from './AddComment';
 import EditDeleteComment from './EditDeleteComment';
 
 const PostComments = (props) => {
-  const { comments, postId } = props;
+  const { comments, parentId } = props;
 
   const handleGetCommentCount = () =>
-    comments.items[postId].filter(comment => !comment.deleted).length;
+    comments.filter(comment => !comment.deleted).length;
 
   return (
     <div>
       <AppBar position="static" color="default">
         <Toolbar className="post-detail comments-toolbar">
-          <CountPostComments
+          {comments && <CountPostComments
             commentCount={handleGetCommentCount()}
-          />
-          <div className="appTitle" />
+          />}
+          <div className="flex-grow" />
           <AddComment
-            parentId={props.postId}
+            parentId={parentId}
           />
         </Toolbar>
       </AppBar>
 
-      <Card>
-        {comments.items[postId].map(comment => (
-          !comment.deleted ?
-            <div key={comment.id}>
-              <CardHeader
-                className="card-header"
-                avatar={
-                  <div>
-                    <VoteUpDown
-                      id={comment.id}
-                      voteType={'comment'}
-                      parentId={comment.parentId}
-                      voteCount={comment.voteScore}
-                    />
-                    <EditDeleteComment
-                      postId={postId}
-                      commentId={comment.id}
-                    />
-                  </div>
-                }
-                title={
-                  <div className="comment-detail-view-counts">
-                    <Avatar>
-                      <PersonIcon />
-                    </Avatar>
-                    <ListItemText
-                      primary={comment.author}
-                      secondary={<Timestamp time={comment.timestamp / 1000} format="date" />}
-                    />
-                  </div>
-                }
-              />
-              <CardContent>
-                <Typography component="p">
-                  {comment.body}
-                </Typography>
-              </CardContent>
-              <Divider light />
-            </div>
-            : null
-        ))}
-      </Card>
+      {comments.map(comment => (
+        !comment.deleted ?
+          <Card key={comment.id}>
+            <CardHeader
+              className="card-header"
+              avatar={
+                <div>
+                  <VoteUpDown
+                    id={comment.id}
+                    voteType={'comment'}
+                    parentId={comment.parentId}
+                    voteCount={comment.voteScore}
+                  />
+                  <EditDeleteComment
+                    postId={comment.parentId}
+                    commentId={comment.id}
+                  />
+                </div>
+              }
+              title={
+                <div className="comment-detail-view-counts">
+                  <Avatar>
+                    <PersonIcon />
+                  </Avatar>
+                  <ListItemText
+                    primary={comment.author}
+                    secondary={<Timestamp time={comment.timestamp / 1000} format="date" />}
+                  />
+                </div>
+              }
+            />
+            <CardContent>
+              <Typography component="p">
+                {comment.body}
+              </Typography>
+            </CardContent>
+            <Divider light />
+          </Card>
+          : null
+      ))}
     </div>
   );
 };
 
 PostComments.propTypes = {
-  postId: PropTypes.string.isRequired,
-  comments: PropTypes.shape({
-    items: PropTypes.object,
-  }).isRequired,
+  parentId: PropTypes.string.isRequired,
+  comments: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
-function mapStateToProps(state) {
-  const { comments } = state;
-  return {
-    comments,
-  };
-}
-
-export default connect(mapStateToProps)(PostComments);
+export default PostComments;

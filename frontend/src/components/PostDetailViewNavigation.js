@@ -1,28 +1,19 @@
-import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import CloseIcon from 'material-ui-icons/Close';
-// import Menu, { MenuItem } from 'material-ui/Menu';
-// import MoreVertIcon from 'material-ui-icons/MoreVert';
-import { fetchCategories } from '../actions/categories';
 import EditDeletePost from './EditDeletePost';
 
-class PostDetailViewNavigation extends Component {
+class PostDetailViewNavigation extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       anchorEl: null,
       open: false,
     };
-  }
-
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchCategories());
   }
 
   handleGoBack = (event) => {
@@ -51,7 +42,7 @@ class PostDetailViewNavigation extends Component {
           >
             <CloseIcon />
           </IconButton>
-          <div className="appTitle" />
+          <div className="flex-grow" />
           <EditDeletePost
             postId={postId}
             color="contrast"
@@ -62,19 +53,15 @@ class PostDetailViewNavigation extends Component {
   }
 }
 
+PostDetailViewNavigation.defaultProps = {
+  postId: '',
+};
+
 PostDetailViewNavigation.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   postId: PropTypes.string.isRequired,
   history: PropTypes.shape({
     goBack: PropTypes.func,
   }).isRequired,
 };
 
-const mapStateToProps = (state) => {
-  const { categories } = state;
-  return {
-    categories,
-  };
-};
-
-export default connect(mapStateToProps)(PostDetailViewNavigation);
+export default connect()(PostDetailViewNavigation);

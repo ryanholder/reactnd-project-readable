@@ -6,42 +6,58 @@ import PostDetailViewNavigation from './PostDetailViewNavigation';
 import PostHeader from './PostHeader';
 import PostContent from './PostContent';
 import PostComments from './PostComments';
+import { fetchPosts } from '../actions/posts';
 
-const PostDetailView = (props) => {
-  const { match, history, posts } = props;
-  const activePost = posts.items
-    .filter(post => post.id === match.params.id)
-    .reduce((acc, cur) => Object.assign(acc, cur), {});
+class PostDetailView extends React.Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(fetchPosts());
+  }
 
-  return (
-    <div className="post-detail-view">
-      <PostDetailViewNavigation
-        category={match.params.category || 'all'}
-        history={history}
-        postId={activePost.id}
-      />
-      <div className="grid-container">
-        <Card className="card-container">
-          <PostHeader
-            title={activePost.title}
-            author={activePost.author}
-            date={activePost.timestamp}
-            voteCount={activePost.voteScore}
-            postId={activePost.id}
+  filterPostsById = (post) => {
+    const { match } = this.props;
+    if (!post.deleted && post.id === match.params.id) {
+      return true;
+    }
+    return false;
+  };
+
+  render() {
+    const { history, posts, comments } = this.props;
+    return (
+      posts.items.filter(this.filterPostsById).map(post => (
+        <div key={post.id} className="post-detail-view">
+          <PostDetailViewNavigation
+            category={posts.selectedCategory}
+            history={history}
+            postId={post.id}
           />
-          <PostContent
-            content={activePost.body}
-          />
-        </Card>
-        <PostComments
-          postId={activePost.id}
-        />
-      </div>
-    </div>
-  );
-};
+          <div className="grid-container">
+            <Card className="card-container">
+              <PostHeader
+                title={post.title}
+                author={post.author}
+                date={post.timestamp}
+                voteCount={post.voteScore}
+                postId={post.id}
+              />
+              <PostContent
+                content={post.body}
+              />
+            </Card>
+            {comments.items[post.id] && <PostComments
+              comments={comments.items[post.id]}
+              parentId={post.id}
+            />}
+          </div>
+        </div>
+      ))
+    );
+  }
+}
 
 PostDetailView.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   match: PropTypes.shape({
     params: PropTypes.object,
   }).isRequired,
@@ -49,8 +65,16 @@ PostDetailView.propTypes = {
     goBack: PropTypes.func,
   }).isRequired,
   posts: PropTypes.shape({
+    isFetching: PropTypes.bool,
     items: PropTypes.array,
-    activePost: PropTypes.object,
+    orderDesc: PropTypes.bool,
+    orderBy: PropTypes.string,
+  }).isRequired,
+  comments: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    items: PropTypes.objectOf(PropTypes.array),
+    orderDesc: PropTypes.bool,
+    orderBy: PropTypes.string,
   }).isRequired,
 };
 
