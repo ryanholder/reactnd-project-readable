@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import MenuIcon from 'material-ui-icons/Menu';
 import Menu, { MenuItem } from 'material-ui/Menu';
-import { fetchCategories } from '../actions/categories';
+import { setSelectedCategory } from '../actions/categories';
 
 class CategorySelect extends Component {
   constructor(props) {
@@ -17,25 +17,25 @@ class CategorySelect extends Component {
     };
   }
 
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchCategories());
-  }
-
   handleClick = (event) => {
-    this.setState({ open: true, anchorEl: event.currentTarget });
+    this.setState({
+      open: true,
+      anchorEl: event.currentTarget,
+    });
   };
 
   handleRequestClose = () => {
     this.setState({ open: false });
   };
 
-  handleMenuItemClick = (event) => {
+  handleMenuItemClick = (category) => {
+    const { dispatch } = this.props;
+    dispatch(setSelectedCategory(category));
     this.setState({ open: false });
   };
 
   render() {
-    const { category, categories } = this.props;
+    const { categories } = this.props;
     return (
       <div className="category-select">
         <IconButton
@@ -48,7 +48,7 @@ class CategorySelect extends Component {
           <MenuIcon />
         </IconButton>
         <Typography className="category-title" type="title" color="inherit">
-          {category}
+          {categories.selectedCategory}
         </Typography>
         <Menu
           anchorEl={this.state.anchorEl}
@@ -58,12 +58,12 @@ class CategorySelect extends Component {
           {[{ name: 'all', path: '' }].concat(categories.items).map(item => (
             <MenuItem
               key={item.name}
-              selected={category === item.name}
+              selected={categories.selectedCategory === item.name}
             >
               <Link
                 className="category-link"
                 to={item.path}
-                onClick={event => this.handleMenuItemClick(event)}
+                onClick={category => this.handleMenuItemClick(item.name)}
               >
                 {item.name}
               </Link>
@@ -79,17 +79,8 @@ CategorySelect.propTypes = {
   dispatch: PropTypes.func.isRequired,
   categories: PropTypes.shape({
     selectedCategory: PropTypes.string,
-    isFetching: PropTypes.bool,
     items: PropTypes.array,
   }).isRequired,
-  category: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => {
-  const { categories } = state;
-  return {
-    categories,
-  };
-};
-
-export default connect(mapStateToProps)(CategorySelect);
+export default connect()(CategorySelect);
