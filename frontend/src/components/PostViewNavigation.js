@@ -6,12 +6,14 @@ import CategorySelect from './CategorySelect';
 import AddPost from './AddPost';
 
 const PostViewNavigation = (props) => {
-  const { category } = props;
+  const { categories } = props;
   return (
     <AppBar position="static" color="primary">
       <Toolbar className="nav-toolbar">
-        <CategorySelect category={category} />
-        <div className="appTitle" />
+        <CategorySelect
+          categories={categories}
+        />
+        <div className="flex-grow" />
         <AddPost />
       </Toolbar>
     </AppBar>
@@ -19,7 +21,10 @@ const PostViewNavigation = (props) => {
 };
 
 PostViewNavigation.propTypes = {
-  category: PropTypes.string.isRequired,
+  categories: PropTypes.shape({
+    selectedCategory: PropTypes.string,
+    items: PropTypes.array,
+  }).isRequired,
 };
 
 export default PostViewNavigation;

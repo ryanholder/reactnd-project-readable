@@ -47,11 +47,4 @@ PostsSort.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const { posts } = state;
-  return {
-    posts,
-  };
-};
-
-export default connect(mapStateToProps)(PostsSort);
+export default connect()(PostsSort);

@@ -1,32 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import Card from 'material-ui/Card';
 import PostHeader from './PostHeader';
 import PostContent from './PostContent';
 import PostFooter from './PostFooter';
 
-class Posts extends Component {
-  filterByCategory = (post) => {
-    if (!post.deleted) {
-      const { category } = this.props;
-      if (category !== 'all') {
-        return post.category === category;
-      }
-      return true;
-    }
-    return false;
+class Posts extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
   }
 
   handleGetCommentCount = (postId) => {
     const { comments } = this.props;
-    if (comments.items[postId]) {
-      return comments.items[postId].length;
+    if (comments.items[postId] != null) {
+      return comments.items[postId].filter(comment => !comment.deleted).length;
     }
-
     return 0;
   }
+
+  filterByCategory = (post) => {
+    const { categories } = this.props;
+    if (!post.deleted) {
+      if (categories.selectedCategory !== 'all') {
+        return post.category === categories.selectedCategory;
+      }
+      return true;
+    }
+    return false;
+  };
 
   render() {
     const { posts } = this.props;
@@ -61,24 +68,22 @@ class Posts extends Component {
 }
 
 Posts.propTypes = {
-  posts: PropTypes.shape({
-    isFetching: PropTypes.bool,
+  categories: PropTypes.shape({
+    selectedCategory: PropTypes.string,
     items: PropTypes.array,
   }).isRequired,
   comments: PropTypes.shape({
     isFetching: PropTypes.bool,
     items: PropTypes.object,
+    orderDesc: PropTypes.bool,
+    orderBy: PropTypes.string,
   }).isRequired,
-  category: PropTypes.string.isRequired,
-  // dispatch: PropTypes.func.isRequired,
+  posts: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    items: PropTypes.array,
+    orderDesc: PropTypes.bool,
+    orderBy: PropTypes.string,
+  }).isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const { posts, comments } = state;
-  return {
-    posts,
-    comments,
-  };
-};
-
-export default connect(mapStateToProps)(Posts);
+export default Posts;

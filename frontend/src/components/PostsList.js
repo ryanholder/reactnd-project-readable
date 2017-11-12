@@ -1,48 +1,48 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { fetchPosts } from '../actions/posts';
 import PostsSort from './PostsSort';
 import Posts from './Posts';
 
-class PostsList extends Component {
-  componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch(fetchPosts());
-  }
-
-  render() {
-    const { category, posts } = this.props;
-    return (
-      <div className="grid-container">
-        <PostsSort
-          orderDesc={posts.orderDesc}
-          orderBy={posts.orderBy}
-        />
-        <Posts
-          category={category}
-        />
-      </div>
-    );
-  }
-}
+const PostsList = (props) => {
+  const { categories, comments, posts } = props;
+  return (
+    <div className="grid-container">
+      {posts.isFetching || comments.isFetching || categories.isFetching
+        ? <span>Loading...</span>
+        :
+        <div>
+          <PostsSort
+            orderDesc={posts.orderDesc}
+            orderBy={posts.orderBy}
+          />
+          <Posts
+            categories={categories}
+            comments={comments}
+            posts={posts}
+          />
+        </div>
+      }
+    </div>
+  );
+};
 
 PostsList.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  categories: PropTypes.shape({
+    selectedCategory: PropTypes.string,
+    items: PropTypes.array,
+  }).isRequired,
+  comments: PropTypes.shape({
+    isFetching: PropTypes.bool,
+    items: PropTypes.object,
+    orderDesc: PropTypes.bool,
+    orderBy: PropTypes.string,
+  }).isRequired,
   posts: PropTypes.shape({
     isFetching: PropTypes.bool,
     items: PropTypes.array,
     orderDesc: PropTypes.bool,
     orderBy: PropTypes.string,
   }).isRequired,
-  category: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const { posts } = state;
-  return {
-    posts,
-  };
-};
-
-export default connect(mapStateToProps)(PostsList);
+export default PostsList;
