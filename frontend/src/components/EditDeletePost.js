@@ -50,14 +50,14 @@ class EditDeletePost extends React.Component {
   };
 
   render() {
-    const { postId } = this.props;
+    const { color, postId } = this.props;
     return (
       <div>
         <IconButton
           aria-label="More"
           aria-owns={this.state.menuOpen ? 'simple-menu' : null}
           aria-haspopup="true"
-          color={this.props.color}
+          color={color}
           onClick={this.handleClick}
         >
           <MoreVertIcon />
@@ -74,12 +74,16 @@ class EditDeletePost extends React.Component {
         <EditPostForm
           handleEditClose={this.handleEditClose}
           isOpen={this.state.editOpen}
-          postId={this.props.postId}
+          postId={postId}
         />
       </div>
     );
   }
 }
+
+EditDeletePost.defaultProps = {
+  color: 'default',
+};
 
 EditDeletePost.propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -92,17 +96,5 @@ EditDeletePost.propTypes = {
     params: PropTypes.object.isRequired,
   }).isRequired,
 };
-
-EditDeletePost.defaultProps = {
-  color: 'default',
-};
-
-// function mapStateToProps(state, ownProps) {
-//   const { posts } = state;
-//   const { postId } = ownProps;
-//   return {
-//     currentPost: posts.items.filter(post => (post.id === postId))[0],
-//   };
-// }
 
 export default withRouter(connect()(EditDeletePost));
