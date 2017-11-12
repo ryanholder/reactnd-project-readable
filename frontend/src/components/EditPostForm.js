@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { withStyles } from 'material-ui/styles';
 import Dialog from 'material-ui/Dialog';
 import AppBar from 'material-ui/AppBar';
