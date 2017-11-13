@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { CardContent } from 'material-ui/Card';
 import Typography from 'material-ui/Typography';
 
@@ -9,5 +10,9 @@ const PostContent = props => (
     </Typography>
   </CardContent>
 );
+
+PostContent.propTypes = {
+  content: PropTypes.string.isRequired,
+};
 
 export default PostContent;

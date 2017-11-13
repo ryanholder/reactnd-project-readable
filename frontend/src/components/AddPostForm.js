@@ -58,6 +58,12 @@ class AddPostForm extends React.Component {
     const { dispatch } = this.props;
     event.preventDefault();
     dispatch(addNewPost(this.state));
+    this.setState({
+      title: '',
+      body: '',
+      author: '',
+      category: '',
+    });
     this.props.handleRequestClose();
   };
 
@@ -70,17 +76,18 @@ class AddPostForm extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, isOpen, handleRequestClose } = this.props;
+    const { title, body, author, category } = this.state;
     return (
       <Dialog
         fullScreen
-        open={this.props.isOpen}
-        onRequestClose={this.props.handleRequestClose}
+        open={isOpen}
+        onRequestClose={handleRequestClose}
         transition={Transition}
       >
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <IconButton color="contrast" onClick={this.props.handleRequestClose} aria-label="Close">
+            <IconButton color="contrast" onClick={handleRequestClose} aria-label="Close">
               <CloseIcon />
             </IconButton>
             <Typography type="title" color="inherit" className={classes.flex}>
@@ -95,7 +102,7 @@ class AddPostForm extends React.Component {
           <Grid container spacing={24}>
             <Grid item xs={12}>
               <TextField
-                value={this.state.title}
+                value={title}
                 onChange={this.handleChange('title')}
                 label="Title"
                 margin="normal"
@@ -104,7 +111,7 @@ class AddPostForm extends React.Component {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                value={this.state.body}
+                value={body}
                 onChange={this.handleChange('body')}
                 label="Content"
                 margin="normal"
@@ -115,7 +122,7 @@ class AddPostForm extends React.Component {
             </Grid>
             <Grid item xs={6}>
               <TextField
-                value={this.state.author}
+                value={author}
                 onChange={this.handleChange('author')}
                 label="Author"
                 placeholder="Name"
@@ -125,7 +132,7 @@ class AddPostForm extends React.Component {
             </Grid>
             <Grid item xs={6}>
               <TextField
-                value={this.state.category}
+                value={category}
                 onChange={this.handleChange('category')}
                 select
                 label="Select Category"
@@ -154,7 +161,7 @@ class AddPostForm extends React.Component {
 
 AddPostForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   isOpen: PropTypes.bool.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
 };

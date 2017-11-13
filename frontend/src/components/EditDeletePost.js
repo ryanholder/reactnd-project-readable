@@ -51,11 +51,12 @@ class EditDeletePost extends React.Component {
 
   render() {
     const { color, postId } = this.props;
+    const { menuOpen, editOpen, anchorEl } = this.state;
     return (
       <div>
         <IconButton
           aria-label="More"
-          aria-owns={this.state.menuOpen ? 'simple-menu' : null}
+          aria-owns={menuOpen ? 'simple-menu' : null}
           aria-haspopup="true"
           color={color}
           onClick={this.handleClick}
@@ -64,8 +65,8 @@ class EditDeletePost extends React.Component {
         </IconButton>
         <Menu
           id="simple-menu"
-          anchorEl={this.state.anchorEl}
-          open={this.state.menuOpen}
+          anchorEl={anchorEl}
+          open={menuOpen}
           onRequestClose={this.handleMenuClose}
         >
           <MenuItem onClick={this.handleEditPostClick}>Edit</MenuItem>
@@ -73,7 +74,7 @@ class EditDeletePost extends React.Component {
         </Menu>
         <EditPostForm
           handleEditClose={this.handleEditClose}
-          isOpen={this.state.editOpen}
+          isOpen={editOpen}
           postId={postId}
         />
       </div>

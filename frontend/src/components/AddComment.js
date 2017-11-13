@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from 'material-ui/Button';
 import AddCommentForm from './AddCommentForm';
 
@@ -19,6 +20,8 @@ class AddComment extends React.Component {
   };
 
   render() {
+    const { parentId } = this.props;
+    const { open } = this.state;
     return (
       <div>
         <Button
@@ -29,12 +32,16 @@ class AddComment extends React.Component {
         </Button>
         <AddCommentForm
           handleRequestClose={this.handleRequestClose}
-          isOpen={this.state.open}
-          parentId={this.props.parentId}
+          isOpen={open}
+          parentId={parentId}
         />
       </div>
     );
   }
 }
+
+AddComment.propTypes = {
+  parentId: PropTypes.string.isRequired,
+};
 
 export default AddComment;

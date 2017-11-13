@@ -74,7 +74,7 @@ export const addNewComment = comment => dispatch =>
       timestamp: Date.now(),
       body: comment.body,
       author: comment.author,
-      parentId: comment.parenId,
+      parentId: comment.parentId,
     }),
   })
     .then(response => response.json())

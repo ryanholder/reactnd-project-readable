@@ -10,7 +10,11 @@ const CountPostVotes = props => (
       aria-label="Vote Score"
       disabled
     >
-      <Badge badgeContent={props.voteCount} color="accent" className="count-badge">
+      <Badge
+        className="count-badge"
+        badgeContent={props.voteCount}
+        color="accent"
+      >
         <ThumbsUpDown />
       </Badge>
     </IconButton>

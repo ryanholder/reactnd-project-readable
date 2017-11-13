@@ -12,10 +12,6 @@ class Posts extends React.Component {
     this.state = {};
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
-  }
-
   handleGetCommentCount = (postId) => {
     const { comments } = this.props;
     if (comments.items[postId] != null) {

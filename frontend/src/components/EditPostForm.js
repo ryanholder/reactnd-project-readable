@@ -74,17 +74,18 @@ class EditPostForm extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, isOpen, handleEditClose } = this.props;
+    const { title, body, author, category } = this.state;
     return (
       <Dialog
         fullScreen
-        open={this.props.isOpen}
-        onRequestClose={this.props.handleEditClose}
+        open={isOpen}
+        onRequestClose={handleEditClose}
         transition={Transition}
       >
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <IconButton color="contrast" onClick={this.props.handleEditClose} aria-label="Close">
+            <IconButton color="contrast" onClick={handleEditClose} aria-label="Close">
               <CloseIcon />
             </IconButton>
             <Typography type="title" color="inherit" className={classes.flex}>
@@ -99,7 +100,7 @@ class EditPostForm extends React.Component {
           <Grid container spacing={24}>
             <Grid item xs={12}>
               <TextField
-                value={this.state.title}
+                value={title}
                 onChange={this.handleChange('title')}
                 label="Title"
                 margin="normal"
@@ -108,7 +109,7 @@ class EditPostForm extends React.Component {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                value={this.state.body}
+                value={body}
                 onChange={this.handleChange('body')}
                 label="Content"
                 margin="normal"
@@ -119,7 +120,7 @@ class EditPostForm extends React.Component {
             </Grid>
             <Grid item xs={6}>
               <TextField
-                value={this.state.author}
+                value={author}
                 onChange={this.handleChange('author')}
                 label="Author"
                 placeholder="Name"
@@ -129,7 +130,7 @@ class EditPostForm extends React.Component {
             </Grid>
             <Grid item xs={6}>
               <TextField
-                value={this.state.category}
+                value={category}
                 onChange={this.handleChange('category')}
                 select
                 label="Select Category"
@@ -158,10 +159,7 @@ class EditPostForm extends React.Component {
 
 EditPostForm.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  classes: PropTypes.shape({
-    appBar: PropTypes.string.isRequired,
-    flex: PropTypes.string.isRequired,
-  }).isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   currentPost: PropTypes.shape({
     author: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,

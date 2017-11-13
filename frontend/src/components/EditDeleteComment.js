@@ -45,22 +45,23 @@ class EditDeleteComment extends React.Component {
   };
 
   render() {
-    const { commentId } = this.props;
+    const { postId, commentId, color } = this.props;
+    const { menuOpen, editOpen, anchorEl } = this.state;
     return (
       <div className="edit-delete-comment">
         <IconButton
           aria-label="More"
-          aria-owns={this.state.menuOpen ? 'simple-menu' : null}
+          aria-owns={menuOpen ? 'simple-menu' : null}
           aria-haspopup="true"
-          color={this.props.color}
+          color={color}
           onClick={this.handleClick}
         >
           <MoreVertIcon />
         </IconButton>
         <Menu
           id="simple-menu"
-          anchorEl={this.state.anchorEl}
-          open={this.state.menuOpen}
+          anchorEl={anchorEl}
+          open={menuOpen}
           onRequestClose={this.handleMenuClose}
         >
           <MenuItem
@@ -76,9 +77,9 @@ class EditDeleteComment extends React.Component {
         </Menu>
         <EditCommentForm
           handleEditClose={this.handleEditClose}
-          isOpen={this.state.editOpen}
-          postId={this.props.postId}
-          commentId={this.props.commentId}
+          isOpen={editOpen}
+          postId={postId}
+          commentId={commentId}
         />
       </div>
     );
@@ -90,12 +91,6 @@ EditDeleteComment.propTypes = {
   commentId: PropTypes.string.isRequired,
   postId: PropTypes.string.isRequired,
   color: PropTypes.string,
-  // history: PropTypes.shape({
-  //   replace: PropTypes.func.isRequired,
-  // }).isRequired,
-  // match: PropTypes.shape({
-  //   params: PropTypes.object.isRequired,
-  // }).isRequired,
 };
 
 EditDeleteComment.defaultProps = {

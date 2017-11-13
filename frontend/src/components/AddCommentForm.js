@@ -33,7 +33,7 @@ class AddCommentForm extends React.Component {
     this.state = {
       body: '',
       author: '',
-      parenId: props.parentId,
+      parentId: props.parentId,
     };
   }
 
@@ -41,6 +41,10 @@ class AddCommentForm extends React.Component {
     const { dispatch } = this.props;
     event.preventDefault();
     dispatch(addNewComment(this.state));
+    this.setState({
+      body: '',
+      author: '',
+    });
     this.props.handleRequestClose();
   };
 
@@ -53,17 +57,18 @@ class AddCommentForm extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, handleRequestClose, isOpen } = this.props;
+    const { body, author } = this.state;
     return (
       <Dialog
         fullScreen
-        open={this.props.isOpen}
-        onRequestClose={this.props.handleRequestClose}
+        open={isOpen}
+        onRequestClose={handleRequestClose}
         transition={Transition}
       >
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <IconButton color="contrast" onClick={this.props.handleRequestClose} aria-label="Close">
+            <IconButton color="contrast" onClick={handleRequestClose} aria-label="Close">
               <CloseIcon />
             </IconButton>
             <Typography type="title" color="inherit" className={classes.flex}>
@@ -78,7 +83,7 @@ class AddCommentForm extends React.Component {
           <Grid container spacing={24}>
             <Grid item xs={12}>
               <TextField
-                value={this.state.author}
+                value={author}
                 onChange={this.handleChange('author')}
                 label="Author"
                 placeholder="Name"
@@ -88,7 +93,7 @@ class AddCommentForm extends React.Component {
             </Grid>
             <Grid item xs={12}>
               <TextField
-                value={this.state.body}
+                value={body}
                 onChange={this.handleChange('body')}
                 label="Content"
                 margin="normal"
@@ -105,8 +110,9 @@ class AddCommentForm extends React.Component {
 }
 
 AddCommentForm.propTypes = {
+  parentId: PropTypes.string.isRequired,
   dispatch: PropTypes.func.isRequired,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   isOpen: PropTypes.bool.isRequired,
   handleRequestClose: PropTypes.func.isRequired,
 };

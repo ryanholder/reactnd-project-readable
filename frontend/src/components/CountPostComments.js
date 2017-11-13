@@ -10,7 +10,11 @@ const CountPostComments = props => (
       aria-label="Comments"
       disabled
     >
-      <Badge badgeContent={props.commentCount} color="primary" className="count-badge">
+      <Badge
+        className="count-badge"
+        badgeContent={props.commentCount}
+        color="primary"
+      >
         <CommentIcon />
       </Badge>
     </IconButton>

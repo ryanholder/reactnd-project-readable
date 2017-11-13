@@ -19,6 +19,7 @@ class AddPost extends React.Component {
   };
 
   render() {
+    const { open } = this.state;
     return (
       <div>
         <Button
@@ -29,7 +30,7 @@ class AddPost extends React.Component {
         </Button>
         <AddPostForm
           handleRequestClose={this.handleRequestClose}
-          isOpen={this.state.open}
+          isOpen={open}
         />
       </div>
     );

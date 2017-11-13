@@ -36,10 +36,11 @@ class CategorySelect extends Component {
 
   render() {
     const { categories } = this.props;
+    const { anchorEl, open } = this.state;
     return (
       <div className="category-select">
         <IconButton
-          aria-owns={this.state.open ? 'simple-menu' : null}
+          aria-owns={open ? 'simple-menu' : null}
           color="contrast"
           aria-label="Menu"
           aria-haspopup="true"
@@ -51,8 +52,8 @@ class CategorySelect extends Component {
           {categories.selectedCategory}
         </Typography>
         <Menu
-          anchorEl={this.state.anchorEl}
-          open={this.state.open}
+          anchorEl={anchorEl}
+          open={open}
           onRequestClose={this.handleRequestClose}
         >
           {[{ name: 'all', path: '' }].concat(categories.items).map(item => (
