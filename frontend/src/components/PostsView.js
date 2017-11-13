@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import PostViewNavigation from './PostViewNavigation';
+import PostsViewNavigation from './PostsViewNavigation';
 import PostsList from './PostsList';
 import { fetchPosts } from '../actions/posts';
 import { fetchCategories } from '../actions/categories';
 
-class PostView extends React.Component {
+class PostsView extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(fetchPosts());
@@ -17,7 +17,7 @@ class PostView extends React.Component {
     const { categories, comments, posts } = this.props;
     return (
       <div className="post-view">
-        <PostViewNavigation
+        <PostsViewNavigation
           categories={categories}
         />
         <PostsList
@@ -30,7 +30,7 @@ class PostView extends React.Component {
   }
 }
 
-PostView.propTypes = {
+PostsView.propTypes = {
   dispatch: PropTypes.func.isRequired,
   categories: PropTypes.shape({
     selectedCategory: PropTypes.string,
@@ -59,4 +59,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(PostView);
+export default connect(mapStateToProps)(PostsView);

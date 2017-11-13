@@ -5,7 +5,7 @@ import Toolbar from 'material-ui/Toolbar';
 import CategorySelect from './CategorySelect';
 import AddPost from './AddPost';
 
-const PostViewNavigation = (props) => {
+const PostsViewNavigation = (props) => {
   const { categories } = props;
   return (
     <AppBar position="static" color="primary">
@@ -20,11 +20,11 @@ const PostViewNavigation = (props) => {
   );
 };
 
-PostViewNavigation.propTypes = {
+PostsViewNavigation.propTypes = {
   categories: PropTypes.shape({
     selectedCategory: PropTypes.string,
     items: PropTypes.array,
   }).isRequired,
 };
 
-export default PostViewNavigation;
+export default PostsViewNavigation;
