@@ -7,16 +7,21 @@ This is the Readable project for Udacity's React Fundamentals course. Applicatio
 
 State management is handled using [Redux](https://redux.js.org/)
 
-# Installation
+## Installation
 
 To get started developing right away:
 
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
 
-## Backend Server
+# API Server
 
-The [API Server](https://github.com/ryanholder/reactnd-project-readable/tree/master/api-server) is located in the api-server folder and is a basic backend server provided by Udacity to utilise in developing this app. The README.md file in the api-server folder contains the methods you will need to perform necessary operations on the backend.
+This application requires that you have the backend server running. The [API Server](https://github.com/ryanholder/reactnd-project-readable/tree/master/api-server) is located in the api-server folder and is a basic backend server provided by [Udacity](https://www.udacity.com/) to utilize in developing this app.
+
+To install and start the API server, run the following commands in the api-server directory:
+
+* `npm install`
+* `node server`
 
 ## What You're Getting
 ```bash
@@ -66,6 +71,9 @@ The [API Server](https://github.com/ryanholder/reactnd-project-readable/tree/mas
             ├── index.js
             └── posts.js
 ```       
+
+## License
+This project is licensed under the terms of the MIT license.
 
 ## Contributing
 
