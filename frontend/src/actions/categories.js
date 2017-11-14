@@ -1,8 +1,10 @@
-const CATEGORIES_URL = 'http://localhost:3001/categories';
+import {
+  REQUEST_CATEGORIES,
+  RECEIVE_CATEGORIES,
+  SET_SELECTED_CATEGORY,
+} from './types';
 
-export const REQUEST_CATEGORIES = 'REQUEST_CATEGORIES';
-export const RECEIVE_CATEGORIES = 'RECEIVE_CATEGORIES';
-export const SET_SELECTED_CATEGORY = 'SET_SELECTED_CATEGORY';
+const CATEGORIES_URL = 'http://localhost:3001/categories';
 
 export const requestCategories = () => ({
   type: REQUEST_CATEGORIES,

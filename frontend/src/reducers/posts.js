@@ -5,11 +5,8 @@ import {
   ADD_POST_SUCCESS,
   EDIT_POST_SUCCESS,
   DELETE_POST_SUCCESS,
-} from '../actions/posts';
-
-import {
   VOTE_POST_SUCCESS,
-} from '../actions/votes';
+} from '../actions/types';
 
 const handleRequestOrderPosts = (
   state,

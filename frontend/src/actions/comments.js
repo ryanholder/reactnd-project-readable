@@ -1,4 +1,13 @@
 import { v1 } from 'uuid';
+import {
+  REQUEST_COMMENTS,
+  RECEIVE_COMMENTS,
+  ORDER_COMMENTS,
+  ADD_COMMENT_SUCCESS,
+  ADD_COMMENT_FAILURE,
+  EDIT_COMMENT_SUCCESS,
+  DELETE_COMMENT_SUCCESS,
+} from './types';
 
 const headers = {
   Authorization: 'authem',
@@ -6,19 +15,6 @@ const headers = {
 };
 
 export const COMMENTS_URL = 'http://localhost:3001/comments';
-
-export const REQUEST_COMMENTS = 'REQUEST_COMMENTS';
-export const RECEIVE_COMMENTS = 'RECEIVE_COMMENTS';
-
-export const ORDER_COMMENTS = 'ORDER_COMMENTS';
-
-export const ADD_NEW_COMMENT = 'ADD_NEW_COMMENT';
-export const ADD_COMMENT_SUCCESS = 'ADD_COMMENT_SUCCESS';
-export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE';
-
-export const EDIT_COMMENT_SUCCESS = 'EDIT_COMMENT_SUCCESS';
-
-export const DELETE_COMMENT_SUCCESS = 'DELETE_COMMENT_SUCCESS';
 
 export const requestComments = () => ({
   type: REQUEST_COMMENTS,

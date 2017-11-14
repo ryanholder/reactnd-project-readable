@@ -2,7 +2,7 @@ import {
   REQUEST_CATEGORIES,
   RECEIVE_CATEGORIES,
   SET_SELECTED_CATEGORY,
-} from '../actions/categories';
+} from '../actions/types';
 
 const categories = (state = {
   isFetching: false,

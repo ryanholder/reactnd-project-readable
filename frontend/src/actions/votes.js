@@ -1,13 +1,14 @@
 import { POSTS_URL } from './posts';
 import { COMMENTS_URL } from './comments';
+import {
+  VOTE_POST_SUCCESS,
+  VOTE_COMMENT_SUCCESS,
+} from './types';
 
 const headers = {
   Authorization: 'authem',
   'Content-Type': 'application/json',
 };
-
-export const VOTE_POST_SUCCESS = 'VOTE_POST_SUCCESS';
-export const VOTE_COMMENT_SUCCESS = 'VOTE_COMMENT_SUCCESS';
 
 export const votePostSuccess = post => ({
   type: VOTE_POST_SUCCESS,

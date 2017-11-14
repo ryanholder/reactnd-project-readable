@@ -1,5 +1,14 @@
 import { v1 } from 'uuid';
 import { fetchComments } from './comments';
+import {
+  REQUEST_POSTS,
+  RECEIVE_POSTS,
+  ORDER_POSTS,
+  ADD_POST_SUCCESS,
+  ADD_POST_FAILURE,
+  EDIT_POST_SUCCESS,
+  DELETE_POST_SUCCESS,
+} from './types';
 
 const headers = {
   Authorization: 'authem',
@@ -7,18 +16,6 @@ const headers = {
 };
 
 export const POSTS_URL = 'http://localhost:3001/posts';
-
-export const REQUEST_POSTS = 'REQUEST_POSTS';
-export const RECEIVE_POSTS = 'RECEIVE_POSTS';
-
-export const ORDER_POSTS = 'ORDER_POSTS';
-
-export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
-export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
-
-export const EDIT_POST_SUCCESS = 'EDIT_POST_SUCCESS';
-
-export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 
 export const requestPosts = () => ({
   type: REQUEST_POSTS,
