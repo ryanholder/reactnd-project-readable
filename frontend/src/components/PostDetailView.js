@@ -6,6 +6,7 @@ import PostDetailViewNavigation from './PostDetailViewNavigation';
 import PostHeader from './PostHeader';
 import PostContent from './PostContent';
 import PostComments from './PostComments';
+import PageNotFound from './PageNotFound';
 import { fetchPosts } from '../actions/posts';
 
 class PostDetailView extends React.Component {
@@ -24,34 +25,37 @@ class PostDetailView extends React.Component {
 
   render() {
     const { history, posts, comments } = this.props;
+    const filteredPosts = posts.items.filter(this.filterPostsById);
     return (
-      posts.items.filter(this.filterPostsById).map(post => (
-        <div key={post.id} className="post-detail-view">
-          <PostDetailViewNavigation
-            category={posts.selectedCategory}
-            history={history}
-            postId={post.id}
-          />
-          <div className="grid-container">
-            <Card className="card-container">
-              <PostHeader
-                title={post.title}
-                author={post.author}
-                date={post.timestamp}
-                voteCount={post.voteScore}
-                postId={post.id}
-              />
-              <PostContent
-                content={post.body}
-              />
-            </Card>
-            {comments.items[post.id] && <PostComments
-              comments={comments.items[post.id]}
-              parentId={post.id}
-            />}
+      filteredPosts.length !== 0
+        ? filteredPosts.map(post => (
+          <div key={post.id} className="post-detail-view">
+            <PostDetailViewNavigation
+              category={posts.selectedCategory}
+              history={history}
+              postId={post.id}
+            />
+            <div className="grid-container">
+              <Card className="card-container">
+                <PostHeader
+                  title={post.title}
+                  author={post.author}
+                  date={post.timestamp}
+                  voteCount={post.voteScore}
+                  postId={post.id}
+                />
+                <PostContent
+                  content={post.body}
+                />
+              </Card>
+              {comments.items[post.id] && <PostComments
+                comments={comments.items[post.id]}
+                parentId={post.id}
+              />}
+            </div>
           </div>
-        </div>
-      ))
+        ))
+        : <PageNotFound />
     );
   }
 }

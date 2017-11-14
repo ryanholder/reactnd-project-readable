@@ -14,7 +14,7 @@ To get started developing right away:
 * install all project dependencies with `npm install`
 * start the development server with `npm start`
 
-# API Server
+## API Server
 
 This application requires that you have the backend server running. The [API Server](https://github.com/ryanholder/reactnd-project-readable/tree/master/api-server) is located in the api-server folder and is a basic backend server provided by [Udacity](https://www.udacity.com/) to utilize in developing this app.
 
