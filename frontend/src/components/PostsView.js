@@ -4,13 +4,18 @@ import { connect } from 'react-redux';
 import PostsViewNavigation from './PostsViewNavigation';
 import PostsList from './PostsList';
 import { fetchPosts } from '../actions/posts';
-import { fetchCategories } from '../actions/categories';
+import { fetchCategories, setSelectedCategory } from '../actions/categories';
 
 class PostsView extends React.Component {
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch, match } = this.props;
     dispatch(fetchPosts());
-    dispatch(fetchCategories());
+    dispatch(fetchCategories()).then((response) => {
+      const categoryValid = response.categories.some(category =>
+        category.name === match.params.category,
+      );
+      dispatch(setSelectedCategory(categoryValid ? match.params.category : 'all'));
+    });
   }
 
   render() {
@@ -31,6 +36,9 @@ class PostsView extends React.Component {
 }
 
 PostsView.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.object,
+  }).isRequired,
   dispatch: PropTypes.func.isRequired,
   categories: PropTypes.shape({
     selectedCategory: PropTypes.string,
